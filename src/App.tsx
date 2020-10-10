@@ -1,10 +1,10 @@
 import React from 'react';
 import ThemeProvider from './themes';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Paper, Typography } from '@material-ui/core';
 import './App.css'
 import ThemeSwitcher from './components/ThemeSwitcher';
 import useTheme from '@material-ui/core/styles/useTheme';
+import HeaderService from './components/header/HeaderService';
 
 function App() {
   const theme = useTheme();
@@ -12,9 +12,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Typography>Hello!</Typography>
+      <HeaderService />
       <ThemeSwitcher />
-      </ThemeProvider>
+    </ThemeProvider>
   );
 }
 
