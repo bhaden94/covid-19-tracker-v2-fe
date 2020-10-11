@@ -1,26 +1,29 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { RouteComponentProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 
-
-export interface INavbarProps {
-    history: RouteComponentProps
-}
-
-const Navbar = ({ history }: RouteComponentProps) => {
-    const [value, setValue] = useState(0);
+const Navbar = ({location}: RouteComponentProps) => {
+    const [tab, setTab] = useState(0);
+    const routes: string[] = ['/united_states', '/world']
 
     const handleChange = (_event: any, newValue: React.SetStateAction<number>) => {
-        setValue(newValue);
+        setTab(newValue);
     };
+
+    useEffect(() => {
+        if (routes.indexOf(location.pathname) !== -1) {
+            setTab(routes.indexOf(location.pathname))
+        }
+    }, [location.pathname, routes])
+
     return (
         <AppBar className="appbar" position="static" color="transparent" elevation={0} square={true}>
             <Tabs
-                value={value}
+                value={tab}
                 onChange={handleChange}
                 indicatorColor="primary"
                 textColor="primary"

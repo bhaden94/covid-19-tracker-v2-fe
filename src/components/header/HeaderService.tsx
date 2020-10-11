@@ -4,42 +4,71 @@ import Header from './Header'
 import { useQuery } from 'react-query'
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
+import { fetchData } from '../../queries/fetchData'
+import { createStats } from './statUtilities'
 
-interface IProps {
-    location: RouteComponentProps
+interface Data {
+    confirmed: number,
+    active: number,
+    recovered: number,
+    deaths: number
 }
 
-const fetchStats = async () => {
-    const data = await fetch('/api/state/all')
-    const json = await data.json()
-    return json
-}
-
-const HeaderService = ({ location }: RouteComponentProps) => {
+const HeaderService = ({ location, history }: RouteComponentProps) => {
     // const { isLoading, isError, data, error } = useQuery('todos', fetchData)
     const [title, setTitle] = useState<string>('United States');
-    const { isLoading, isError, data, error } = useQuery('states', fetchStats)
+    const [totals, setTotals] = useState<Data>({
+        confirmed: 0,
+        active: 0,
+        recovered: 0,
+        deaths: 0
+    })
+    const [url, setUrl] = useState<string>('/api/state/all')
+
+    const { isLoading, isError, data } = useQuery(['states', url], fetchData)
 
     useEffect(() => {
-        if (location.pathname !== '/') {
-            let title = location.pathname.replace('/', '')
-            title = title.toLowerCase().split('_')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-            setTitle(title)
+        if (location.pathname === '/') {
+            history.push('/united_states')
+        }
+    }, [location.pathname, history])
+
+    useEffect(() => {
+        let title = location.pathname.replace('/', '')
+        title = title.toLowerCase().split('_').map(word => {
+            return word.charAt(0).toUpperCase() + word.slice(1)
+        }).join(' ');
+         
+        setTitle(title)
+
+        if(title === 'United States') {
+            setUrl('/api/state/all')
+        } else if (title === "World") {
+            setUrl('/api/country/all')
         }
     }, [location.pathname])
 
-    const totals = {
-        confirmed: 123456,
-        active: 123456,
-        recovered: 123456,
-        deaths: 123456
-    }
+    useEffect(() => {
+        if(data) {
+            const totals = createStats(data, location.pathname);
+            setTotals({
+                confirmed: totals.confirmed,
+                active: totals.active,
+                recovered: totals.recovered,
+                deaths: totals.deaths
+            })
+        }
+    }, [data])
+    
 
     if (isLoading) {
         return <span>Loading...</span>
     }
-    
+
+    if(isError) {
+        return <span>Error</span>
+    }
+
     return (
         <Header title={title} totals={totals} />
     );

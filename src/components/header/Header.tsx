@@ -40,7 +40,6 @@ interface IProps {
 
 const Header = ({ title, totals }: IProps) => {
     const classes = useStyles();
-    const theTotals = totals;
 
     return (
         <Paper className={classes.container}>
