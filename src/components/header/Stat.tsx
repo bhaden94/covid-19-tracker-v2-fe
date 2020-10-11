@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import { Grid, Tooltip, Typography, Button } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { abbreviateNumber } from './statUtilities'
+
 
 const useStyles = makeStyles({
     padTop: {
@@ -19,15 +22,22 @@ export interface IStatProps {
 
 export default function Stat({ name, stat, properties }: IStatProps) {
     const classes = useStyles();
+    const [num, setNum] = useState<any>('')
+
+    useEffect(() => {
+        setNum(abbreviateNumber(stat, 1))
+    }, [stat])
 
     return (
         <Grid item xs={12} sm={6} md={3} className={classes.padTop}>
             <Typography color='textSecondary' className={classes.font} variant='h2' align='center'>
                 <u>{name}</u>
             </Typography><br />
-            <Typography className={properties} gutterBottom variant='h2' align='center'>
-                {stat}
-            </Typography>
+            <Tooltip title={stat.toLocaleString()} arrow>
+                <Typography className={properties} gutterBottom variant='h2' align='center'>
+                    {num}
+                </Typography>
+            </Tooltip>
         </Grid>
     );
 }
