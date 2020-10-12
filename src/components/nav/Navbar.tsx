@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 
 const Navbar = ({location, history}: RouteComponentProps) => {
-    const [tab, setTab] = useState(0);
+    const [tab, setTab] = useState<number>(0);
     const routes: string[] = ['/united_states', '/world']
 
     const handleChange = (_event: any, newValue: React.SetStateAction<number>) => {

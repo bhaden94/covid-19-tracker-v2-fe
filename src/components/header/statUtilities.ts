@@ -1,6 +1,6 @@
-export const createStats = (data: any, location: string) => {
+export const createStats = (data: any, type: string) => {
     let builtStats;
-    if(location === '/api/state/all') {
+    if(type === 'state') {
         builtStats = buildState(data)
     } else {
         builtStats = buildCountry(data)
@@ -14,13 +14,11 @@ const buildCountry = (data: any) => {
     let recovered = 0;
     let deaths = 0;
 
-    data.forEach((entry: any) => {
-        entry.countries.forEach((country: any) => {
-            confirmed += country.confirmed
-            active += country.active
-            recovered += country.recovered
-            deaths += country.deaths
-        })
+    data[data.length - 1].countries.forEach((country: any) => {
+        confirmed += country.confirmed
+        active += country.active
+        recovered += country.recovered
+        deaths += country.deaths
     })
     return {
         confirmed: confirmed,
@@ -36,13 +34,11 @@ const buildState = (data: any) => {
     let recovered = 0;
     let deaths = 0;
 
-    data.forEach((entry: any) => {
-        entry.states.forEach((state: any) => {
+    data[data.length - 1].states.forEach((state: any) => {
             confirmed += state.confirmed
             active += state.active
             recovered += state.recovered
             deaths += state.deaths
-        })
     })
     return {
         confirmed: confirmed,

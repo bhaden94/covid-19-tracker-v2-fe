@@ -37,27 +37,30 @@ const useStyles = makeStyles({
     }
 });
 
-interface IProps {
+interface ITotalsProps {
     title: string
-    url: string
+    type: string
+    name?: string
 }
 
-interface Data {
+interface TotalData {
     confirmed: number,
     active: number,
     recovered: number,
     deaths: number
 }
 
-const Totals = ({ title, url }: IProps) => {
+const Totals = ({ title, type, name }: ITotalsProps) => {
     const classes = useStyles();
-    const { isLoading, isError, data } = useQuery([title, url], fetchData,{
+    const { isLoading, isError, data } = useQuery(type, fetchData, {
         initialData: () => {
-            return queryCache.getQueryData(title)
+            return queryCache.getQueryData(type)
         }
     })
 
-    const [totals, setTotals] = useState<Data>({
+    const specificData = useQuery([type, name], fetchData)
+
+    const [totals, setTotals] = useState<TotalData>({
         confirmed: 0,
         active: 0,
         recovered: 0,
@@ -65,8 +68,17 @@ const Totals = ({ title, url }: IProps) => {
     })
 
     useEffect(() => {
-        if(data) {
-            const totals = createStats(data, url);
+        if (data && !name) {
+            const totals = createStats(data, type);
+            totals &&
+                setTotals({
+                    confirmed: totals.confirmed,
+                    active: totals.active,
+                    recovered: totals.recovered,
+                    deaths: totals.deaths
+                })
+        } else if(specificData?.data) {
+            const totals = createStats(specificData.data, type);
             totals &&
                 setTotals({
                     confirmed: totals.confirmed,
@@ -75,13 +87,13 @@ const Totals = ({ title, url }: IProps) => {
                     deaths: totals.deaths
                 })
         }
-    }, [data])
+    }, [data, type, specificData, name])
 
     if (isLoading) {
         return <span>Loading...</span>
     }
 
-    if(isError) {
+    if (isError) {
         return <span>Error</span>
     }
 
