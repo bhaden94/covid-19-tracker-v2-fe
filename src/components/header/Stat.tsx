@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Grid, Tooltip, Typography, Button } from '@material-ui/core';
+import { Grid, Tooltip, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { abbreviateNumber } from './statUtilities'
 

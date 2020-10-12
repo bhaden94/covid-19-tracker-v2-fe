@@ -1,7 +1,11 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Grid, Paper, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { deepOrange, green, red, amber } from '@material-ui/core/colors';
+import { queryCache, useQuery } from 'react-query'
+import { fetchData } from '../../queries/fetchData'
+import { createStats } from './statUtilities'
 import Stat from './Stat';
 
 const useStyles = makeStyles({
@@ -35,11 +39,51 @@ const useStyles = makeStyles({
 
 interface IProps {
     title: string
-    totals: any
+    url: string
 }
 
-const Header = ({ title, totals }: IProps) => {
+interface Data {
+    confirmed: number,
+    active: number,
+    recovered: number,
+    deaths: number
+}
+
+const Totals = ({ title, url }: IProps) => {
     const classes = useStyles();
+    const { isLoading, isError, data } = useQuery([title, url], fetchData,{
+        initialData: () => {
+            return queryCache.getQueryData(title)
+        }
+    })
+
+    const [totals, setTotals] = useState<Data>({
+        confirmed: 0,
+        active: 0,
+        recovered: 0,
+        deaths: 0
+    })
+
+    useEffect(() => {
+        if(data) {
+            const totals = createStats(data, url);
+            totals &&
+                setTotals({
+                    confirmed: totals.confirmed,
+                    active: totals.active,
+                    recovered: totals.recovered,
+                    deaths: totals.deaths
+                })
+        }
+    }, [data])
+
+    if (isLoading) {
+        return <span>Loading...</span>
+    }
+
+    if(isError) {
+        return <span>Error</span>
+    }
 
     return (
         <Paper className={classes.container}>
@@ -61,4 +105,4 @@ const Header = ({ title, totals }: IProps) => {
     );
 };
 
-export default Header;
+export default Totals;

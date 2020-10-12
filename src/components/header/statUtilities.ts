@@ -1,6 +1,6 @@
 export const createStats = (data: any, location: string) => {
     let builtStats;
-    if(location.indexOf('united_states') !== -1) {
+    if(location === '/api/state/all') {
         builtStats = buildState(data)
     } else {
         builtStats = buildCountry(data)

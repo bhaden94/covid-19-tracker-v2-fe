@@ -6,13 +6,19 @@ import Tab from '@material-ui/core/Tab';
 import { RouteComponentProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 
-const Navbar = ({location}: RouteComponentProps) => {
+const Navbar = ({location, history}: RouteComponentProps) => {
     const [tab, setTab] = useState(0);
     const routes: string[] = ['/united_states', '/world']
 
     const handleChange = (_event: any, newValue: React.SetStateAction<number>) => {
         setTab(newValue);
     };
+
+    useEffect(() => {
+        if (location.pathname === '/') {
+            history.push('/united_states')
+        }
+    }, [location.pathname, history])
 
     useEffect(() => {
         if (routes.indexOf(location.pathname) !== -1) {
