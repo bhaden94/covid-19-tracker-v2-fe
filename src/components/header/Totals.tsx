@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { Grid, Paper, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { deepOrange, green, red, amber } from '@material-ui/core/colors';
 import { queryCache, useQuery } from 'react-query'
 import { fetchData } from '../../queries/fetchData'
-import { createStats } from './statUtilities'
+import { createStats } from '../../utilities/statUtilities'
 import Stat from './Stat';
 
 const useStyles = makeStyles({
@@ -37,10 +39,10 @@ const useStyles = makeStyles({
     }
 });
 
-interface ITotalsProps {
+interface ITotalsProps extends RouteComponentProps {
     title: string
     type: string
-    name?: string
+    name?: string,
 }
 
 interface TotalData {
@@ -50,7 +52,7 @@ interface TotalData {
     deaths: number
 }
 
-const Totals = ({ title, type, name }: ITotalsProps) => {
+const Totals = ({location, match, history, title, type, name }: ITotalsProps) => {
     const classes = useStyles();
     const { isLoading, isError, data } = useQuery(type, fetchData, {
         initialData: () => {
@@ -89,6 +91,12 @@ const Totals = ({ title, type, name }: ITotalsProps) => {
         }
     }, [data, type, specificData, name])
 
+    useEffect(() => {
+        if(match?.params) {
+
+        }
+    }, [match])
+
     if (isLoading) {
         return <span>Loading...</span>
     }
@@ -96,6 +104,8 @@ const Totals = ({ title, type, name }: ITotalsProps) => {
     if (isError) {
         return <span>Error</span>
     }
+
+    console.log(JSON.stringify(location), JSON.stringify(match), JSON.stringify(history))
 
     return (
         <Paper className={classes.container}>
@@ -117,4 +127,4 @@ const Totals = ({ title, type, name }: ITotalsProps) => {
     );
 };
 
-export default Totals;
+export default withRouter(Totals);
