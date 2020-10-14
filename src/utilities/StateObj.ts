@@ -1,7 +1,6 @@
 export const state : any = {
     alabama: 'Alabama',
     alaska: 'Alaska',
-    american_samoa: 'American Samoa',
     arizona: 'Arizona',
     arkansas: 'Arkansas',
     california: 'California',

@@ -102,8 +102,8 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
     }, [data, type, title, single, specificData])
 
     useEffect(() => {
-        if(state.hasOwnProperty(match.params.state)) {
-            setName(state[match.params.state])
+        if(match.params.state && state.hasOwnProperty(match.params.state.split(' ').join('_'))) {
+            setName(state[match.params.state.split(' ').join('_')])
         }
     }, [name, match])
 
