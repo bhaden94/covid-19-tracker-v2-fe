@@ -1,4 +1,4 @@
-export const State = {
+export const state : any = {
     alabama: 'Alabama',
     alaska: 'Alaska',
     american_samoa: 'American Samoa',

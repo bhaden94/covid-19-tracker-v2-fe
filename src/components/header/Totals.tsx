@@ -9,6 +9,7 @@ import { queryCache, useQuery } from 'react-query'
 import { fetchData } from '../../queries/fetchData'
 import { createStats } from '../../utilities/statUtilities'
 import Stat from './Stat';
+import {state} from '../../utilities/StateObj'
 
 const useStyles = makeStyles({
     container: {
@@ -39,29 +40,25 @@ const useStyles = makeStyles({
     }
 });
 
-interface ITotalsProps extends RouteComponentProps {
-    title: string
+interface RouterProps {
+    state: string
+}
+interface ITotalsProps extends RouteComponentProps<RouterProps> {
     type: string
-    name?: string,
+    single: boolean
+    title?: string
 }
 
 interface TotalData {
-    confirmed: number,
-    active: number,
-    recovered: number,
+    confirmed: number
+    active: number
+    recovered: number
     deaths: number
 }
 
-const Totals = ({location, match, history, title, type, name }: ITotalsProps) => {
+const Totals = ({ match, title, type, single }: ITotalsProps) => {
     const classes = useStyles();
-    const { isLoading, isError, data } = useQuery(type, fetchData, {
-        initialData: () => {
-            return queryCache.getQueryData(type)
-        }
-    })
-
-    const specificData = useQuery([type, name], fetchData)
-
+    const [name, setName] = useState<string>('')
     const [totals, setTotals] = useState<TotalData>({
         confirmed: 0,
         active: 0,
@@ -69,8 +66,21 @@ const Totals = ({location, match, history, title, type, name }: ITotalsProps) =>
         deaths: 0
     })
 
+    // for us and world stats
+    const { isLoading, isError, data } = useQuery(type, fetchData, {
+        enabled: !single,
+        initialData: () => {
+            return queryCache.getQueryData(type)
+        }
+    })
+
+    // for specific state or country stats
+    const specificData = useQuery([type, name], fetchData, {
+        enabled: single && name,
+    })
+    
     useEffect(() => {
-        if (data && !name) {
+        if (data && !single) {
             const totals = createStats(data, type);
             totals &&
                 setTotals({
@@ -89,13 +99,21 @@ const Totals = ({location, match, history, title, type, name }: ITotalsProps) =>
                     deaths: totals.deaths
                 })
         }
-    }, [data, type, specificData, name])
+    }, [data, type, title, single, specificData])
 
     useEffect(() => {
-        if(match?.params) {
-
+        if(state.hasOwnProperty(match.params.state)) {
+            setName(state[match.params.state])
         }
-    }, [match])
+    }, [name, match])
+
+    // useEffect(() => {
+    //     // if(single && match?.params) {
+    //     //     setName(match.params.state)
+    //     // } else {
+    //     //     setName("")
+    //     // }
+    // }, [match, single])
 
     if (isLoading) {
         return <span>Loading...</span>
@@ -105,7 +123,7 @@ const Totals = ({location, match, history, title, type, name }: ITotalsProps) =>
         return <span>Error</span>
     }
 
-    console.log(JSON.stringify(location), JSON.stringify(match), JSON.stringify(history))
+    // console.log(JSON.stringify(location), JSON.stringify(match), JSON.stringify(history))
 
     return (
         <Paper className={classes.container}>
@@ -115,7 +133,7 @@ const Totals = ({location, match, history, title, type, name }: ITotalsProps) =>
             >
                 <Grid item xs={12} className={classes.padTop}>
                     <Typography className={classes.title} color='textSecondary' gutterBottom variant='h1' align='center'>
-                        {title}
+                        {title || name}
                     </Typography>
                 </Grid>
                 <Stat name='Recovered' stat={totals.recovered} properties={classes.recovered} />
