@@ -14,7 +14,7 @@ import {state} from '../../utilities/StateObj'
 const useStyles = makeStyles({
     container: {
         minHeight: '100px',
-        margin: '1%'
+        margin: '1% 5%'
     },
     padTop: {
         paddingTop: '10px',
@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 
 interface RouterProps {
     state: string
+    country: string
 }
 interface ITotalsProps extends RouteComponentProps<RouterProps> {
     type: string
@@ -104,16 +105,10 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
     useEffect(() => {
         if(match.params.state && state.hasOwnProperty(match.params.state.split(' ').join('_'))) {
             setName(state[match.params.state.split(' ').join('_')])
+        } else if( match.params.country) {
+            setName(match.params.country)
         }
     }, [name, match])
-
-    // useEffect(() => {
-    //     // if(single && match?.params) {
-    //     //     setName(match.params.state)
-    //     // } else {
-    //     //     setName("")
-    //     // }
-    // }, [match, single])
 
     if (isLoading) {
         return <span>Loading...</span>
@@ -122,8 +117,6 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
     if (isError) {
         return <span>Error</span>
     }
-
-    // console.log(JSON.stringify(location), JSON.stringify(match), JSON.stringify(history))
 
     return (
         <Paper className={classes.container}>

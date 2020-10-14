@@ -34,9 +34,9 @@ const TotalsService = () => {
             <Route exact path="/world" 
                 render={() => <Totals title='World' type='country' single={false} />} 
             />
-            {/* <Route exact path="/world/:country" 
-                render={() => <Totals title={title} url={`/api/country?name=${queryPlace}`} />} 
-            /> */}
+            <Route exact path="/world/:country" 
+                render={() => <Totals type='country' single={true} />} 
+            />
         </Switch>
     );
 };
