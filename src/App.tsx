@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ThemeProvider from './themes';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,9 +8,24 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import TotalsService from './components/header/TotalsService';
 import Navbar from './components/nav/Navbar';
 import { ReactQueryDevtools } from 'react-query-devtools'
+import { queryCache } from 'react-query'
+import { fetchData } from './queries/fetchData'
+
+const prefetchStates = async () => {
+  await queryCache.prefetchQuery('state', () => fetchData('state'))
+}
+
+const prefetchCountries = async () => {
+  await queryCache.prefetchQuery('country', () => fetchData('country'))
+}
 
 function App() {
   const theme = useTheme();
+
+  useEffect(() => {
+    prefetchStates();
+    prefetchCountries();
+}, [])
 
   return (
     <ThemeProvider theme={theme}>
