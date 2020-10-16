@@ -9,7 +9,8 @@ import { queryCache, useQuery } from 'react-query'
 import { fetchData } from '../../queries/fetchData'
 import { createStats } from '../../utilities/statUtilities'
 import Stat from './Stat';
-import {state} from '../../utilities/StateObj'
+import { State } from '../../utilities/StateObj'
+import { Country } from '../../utilities/CountryObj';
 
 const useStyles = makeStyles({
     container: {
@@ -57,7 +58,7 @@ interface TotalData {
     deaths: number
 }
 
-const Totals = ({ match, title, type, single }: ITotalsProps) => {
+const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
     const classes = useStyles();
     const [name, setName] = useState<string>('')
     const [totals, setTotals] = useState<TotalData>({
@@ -79,7 +80,7 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
     const specificData = useQuery([type, name], fetchData, {
         enabled: single && name,
     })
-    
+
     useEffect(() => {
         if (data && !single) {
             const totals = createStats(data, type);
@@ -90,7 +91,7 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
                     recovered: totals.recovered,
                     deaths: totals.deaths
                 })
-        } else if(specificData?.data) {
+        } else if (specificData?.data) {
             const totals = createStats(specificData.data, type);
             totals &&
                 setTotals({
@@ -103,12 +104,28 @@ const Totals = ({ match, title, type, single }: ITotalsProps) => {
     }, [data, type, title, single, specificData])
 
     useEffect(() => {
-        if(match.params.state && state.hasOwnProperty(match.params.state.split(' ').join('_'))) {
-            setName(state[match.params.state.split(' ').join('_')])
-        } else if( match.params.country) {
-            setName(match.params.country)
+        let query = ''
+        if(match.params.state) {
+            query = match.params.state.toLowerCase().split(' ').join('_')
+        } else if(match.params.country) {
+            query = match.params.country.toLowerCase().split(/[\s -]+/).join('_')
         }
-    }, [name, match])
+        
+        if (match.params.state) {
+            if(State.hasOwnProperty(query)) {
+                setName(State[query])
+            } else {
+                history.push('/united_states')
+            }
+        // country needs regex to handle dashes as well as spaces in the name
+        } else if (match.params.country) {
+            if(Country.hasOwnProperty(query)) {
+                setName(Country[query])
+            } else {
+                history.push('/world')
+            }
+        }
+    }, [name, match, history])
 
     if (isLoading) {
         return <span>Loading...</span>

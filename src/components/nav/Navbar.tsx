@@ -37,7 +37,7 @@ const Navbar = ({location, history}: RouteComponentProps) => {
             >
                 <Tab label="United States" component={Link} to="/united_states" />
                 <Tab label="Global" component={Link} to="/world" />
-                <Tab label="Delaware" component={Link} to="/united_states/delaware" />
+                <Tab label="Delaware" component={Link} to="/united_states/Delaware" />
             </Tabs>
         </AppBar>
     );
