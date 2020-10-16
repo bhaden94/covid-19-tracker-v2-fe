@@ -115,6 +115,7 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
             if(State.hasOwnProperty(query)) {
                 setName(State[query])
             } else {
+                // trying to get invalid state
                 history.push('/united_states')
             }
         // country needs regex to handle dashes as well as spaces in the name
@@ -122,6 +123,7 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
             if(Country.hasOwnProperty(query)) {
                 setName(Country[query])
             } else {
+                // trying to get invalid country
                 history.push('/world')
             }
         }
