@@ -3,9 +3,9 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import ThemeProvider from './themes';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css'
-import ThemeSwitcher from './components/ThemeSwitcher';
+import ThemeSwitcher from './components/theme-switcher/ThemeSwitcher';
 import useTheme from '@material-ui/core/styles/useTheme';
-import TotalsService from './components/header/TotalsService';
+import TotalsRoutes from './components/header/TotalsRoutes';
 import Navbar from './components/nav/Navbar';
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { queryCache } from 'react-query'
@@ -32,7 +32,7 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
-        <Route path="/" component={TotalsService} />
+        <Route path="/" component={TotalsRoutes} />
       </BrowserRouter>
       <ThemeSwitcher />
       <ReactQueryDevtools initialIsOpen={false} />

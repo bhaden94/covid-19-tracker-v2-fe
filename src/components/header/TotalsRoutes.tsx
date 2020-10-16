@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Totals from './Totals'
 
-const TotalsService = () => {
+const TotalsRoutes = () => {
     return (
         <Switch>
             <Route exact path="/united_states" 
@@ -21,4 +21,4 @@ const TotalsService = () => {
     );
 };
 
-export default TotalsService;
+export default TotalsRoutes;
