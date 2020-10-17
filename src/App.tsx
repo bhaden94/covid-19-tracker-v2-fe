@@ -10,6 +10,7 @@ import Navbar from './components/nav/Navbar';
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { queryCache } from 'react-query'
 import { fetchData } from './queries/fetchData'
+import TableRoutes from './components/table/TableRoutes';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
@@ -33,6 +34,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Route path="/" component={TotalsRoutes} />
+        <Route path="/" component={TableRoutes} />
       </BrowserRouter>
       <ThemeSwitcher />
       <ReactQueryDevtools initialIsOpen={false} />
