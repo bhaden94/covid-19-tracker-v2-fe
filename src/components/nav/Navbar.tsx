@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 const Navbar = ({location, history}: RouteComponentProps) => {
     const [tab, setTab] = useState<number>(0);
-    const routes: string[] = ['/united_states', '/world', '/united_states/delaware']
+    const routes: string[] = ['/united_states', '/world']
 
     const handleChange = (_event: any, newValue: React.SetStateAction<number>) => {
         setTab(newValue);
@@ -37,7 +37,6 @@ const Navbar = ({location, history}: RouteComponentProps) => {
             >
                 <Tab label="United States" component={Link} to="/united_states" />
                 <Tab label="Global" component={Link} to="/world" />
-                <Tab label="Delaware" component={Link} to="/united_states/Delaware" />
             </Tabs>
         </AppBar>
     );
