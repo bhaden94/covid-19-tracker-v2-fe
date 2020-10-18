@@ -1,4 +1,4 @@
-export const daysChanged = (data: any, place: string, type: string, days: number): string => {
+export const daysChanged = (data: any, place: string, type: string, days: number): number => {
     let recent: number = 0;
     let old: number = 0;
     if (type === 'state') {
@@ -15,5 +15,5 @@ export const daysChanged = (data: any, place: string, type: string, days: number
     const diff: number = recent - old
     // this makes sorting not work since it takes into consideration the commas
     // for example: 1,127 comes before(as in considered lower) than 900 because of the comma
-    return diff.toLocaleString();
+    return diff;
 }

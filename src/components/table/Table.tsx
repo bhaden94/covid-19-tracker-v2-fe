@@ -50,7 +50,7 @@ const Table = ({ type, location }: ITableProps) => {
 
     const classes = useStyles();
     const [chosenObj, setChosenObj] = useState(State)
-    const columns: { title: string, field: string, render?: any }[] = [
+    const columns: any[] = [
         {
             title: type.charAt(0).toUpperCase() + type.slice(1),
             field: 'name',
@@ -68,10 +68,12 @@ const Table = ({ type, location }: ITableProps) => {
         {
             title: '1-Day change',
             field: 'day1Change',
+            type: 'numeric'
         },
         {
             title: '7-Day change',
             field: 'day7Change',
+            type: 'numeric'
         },
     ]
 
@@ -81,6 +83,8 @@ const Table = ({ type, location }: ITableProps) => {
         pageSize: 10,
         showTitle: false,
         searchFieldAlignment: 'left',
+        exportAllData: true,
+        exportButton: true
     }
 
     useEffect(() => {
