@@ -11,15 +11,8 @@ import { blue, deepPurple } from '@material-ui/core/colors';
 import useTheme from '@material-ui/core/styles/useTheme';
 import { queryCache, useQuery } from 'react-query'
 import { fetchData } from '../../queries/fetchData'
+import { daysChanged } from '../../utilities/tableUtils'
 
-// so far there is a problem with Virgin Islands being undefined in the filter
-// TODO: need to figure this out
-const daysChanged = (data: any, place: string, days: number): any => {
-    const recent: any = data[data.length - 1].states
-        .filter((state: { state: string; }) => state.state === place.toLowerCase())
-    console.log(recent[0]?.state)
-    return 0;
-}
 
 interface RouterProps {
     state: string
@@ -82,11 +75,12 @@ const Table = ({ type, location }: ITableProps) => {
         },
     ]
 
-    const options = {
+    const options: any = {
         minBodyHeight: '600px',
         pageSizeOptions: [10,25,50],
         pageSize: 10,
         showTitle: false,
+        searchFieldAlignment: 'left',
     }
 
     useEffect(() => {
@@ -108,8 +102,8 @@ const Table = ({ type, location }: ITableProps) => {
                 data={Object.keys(chosenObj).map((e: any) => {
                     return {
                         name: chosenObj[e],
-                        day1Change: daysChanged(data, chosenObj[e], 1),
-                        day7Change: daysChanged(data, chosenObj[e], 7)
+                        day1Change: daysChanged(data, chosenObj[e], type, 1),
+                        day7Change: daysChanged(data, chosenObj[e], type, 7)
                     }
                 })}
                 options={options}

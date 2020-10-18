@@ -108,6 +108,7 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
         if(match.params.state) {
             query = match.params.state.toLowerCase().split(' ').join('_')
         } else if(match.params.country) {
+            // country needs regex to handle dashes as well as spaces in the name
             query = match.params.country.toLowerCase().split(/[\s -]+/).join('_')
         }
         
@@ -118,7 +119,6 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
                 // trying to get invalid state
                 history.push('/united_states')
             }
-        // country needs regex to handle dashes as well as spaces in the name
         } else if (match.params.country) {
             if(Country.hasOwnProperty(query)) {
                 setName(Country[query])

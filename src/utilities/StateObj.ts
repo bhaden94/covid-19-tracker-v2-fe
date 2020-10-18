@@ -50,7 +50,7 @@ export const State : any = {
     texas: 'Texas',
     utah: 'Utah',
     vermont: 'Vermont',
-    virgin_islands: 'Virigin Islands',
+    virgin_islands: 'Virgin Islands',
     virginia: 'Virginia',
     washington: 'Washington',
     west_virginia: 'West Virginia',
