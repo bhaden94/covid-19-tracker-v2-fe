@@ -32,10 +32,6 @@ const Table = ({ type, location }: ITableProps) => {
 
     const theme = useTheme();
     const useStyles = makeStyles({
-        table: {
-            margin: '2% 5%',
-            maxWidth: '500px',
-        },
         links: {
             textDecoration: 'none',
             color: blue[600],
@@ -79,7 +75,7 @@ const Table = ({ type, location }: ITableProps) => {
 
     const options: any = {
         minBodyHeight: '600px',
-        pageSizeOptions: [10,25,50],
+        pageSizeOptions: [10, 25, 50],
         pageSize: 10,
         showTitle: false,
         searchFieldAlignment: 'left',
@@ -100,19 +96,19 @@ const Table = ({ type, location }: ITableProps) => {
     }
 
     return (
-        <div className={classes.table}>
-            <MaterialTable
-                columns={columns}
-                data={Object.keys(chosenObj).map((e: any) => {
-                    return {
-                        name: chosenObj[e],
-                        day1Change: daysChanged(data, chosenObj[e], type, 1),
-                        day7Change: daysChanged(data, chosenObj[e], type, 7)
-                    }
-                })}
-                options={options}
-            />
-        </div>
+
+        <MaterialTable
+            columns={columns}
+            data={Object.keys(chosenObj).map((e: any) => {
+                return {
+                    name: chosenObj[e],
+                    day1Change: daysChanged(data, chosenObj[e], type, 1),
+                    day7Change: daysChanged(data, chosenObj[e], type, 7)
+                }
+            })}
+            options={options}
+        />
+
     );
 };
 

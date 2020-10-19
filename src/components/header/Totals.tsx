@@ -15,7 +15,7 @@ import { Country } from '../../utilities/CountryObj';
 const useStyles = makeStyles({
     container: {
         minHeight: '100px',
-        margin: '1% 5%'
+        margin: '1% 0'
     },
     padTop: {
         paddingTop: '10px',
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     },
     confirmed: {
         fontSize: '1.5rem',
-        color: deepOrange[500]
+        color: deepOrange[400]
     },
     deaths: {
         fontSize: '1.5rem',

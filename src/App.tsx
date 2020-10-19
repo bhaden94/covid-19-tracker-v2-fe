@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ThemeProvider from './themes';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,6 +11,8 @@ import { ReactQueryDevtools } from 'react-query-devtools'
 import { queryCache } from 'react-query'
 import { fetchData } from './queries/fetchData'
 import TableRoutes from './components/table/TableRoutes';
+import LineChartRoutes from './components/line-chart/LineChartRoutes';
+import Grid from '@material-ui/core/Grid';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
@@ -26,15 +28,26 @@ function App() {
   useEffect(() => {
     prefetchStates();
     prefetchCountries();
-}, [])
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
-        <Route path="/" component={TotalsRoutes} />
-        <Route path="/" component={TableRoutes} />
+        <div style={{ padding: 24 }}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Route path="/" component={TotalsRoutes} />
+            </Grid>
+            <Grid item xs={12} sm={6} md={5}>
+              <Route path="/" component={TableRoutes} />
+            </Grid>
+            <Grid item xs={12} sm={12} md={7}>
+              <Route path="/" component={LineChartRoutes} />
+            </Grid>
+          </Grid>
+        </div>
       </BrowserRouter>
       <ThemeSwitcher />
       <ReactQueryDevtools initialIsOpen={false} />
