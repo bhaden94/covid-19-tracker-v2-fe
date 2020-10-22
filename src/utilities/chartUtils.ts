@@ -1,120 +1,66 @@
-export const createChartData = (data: any, type: string) => {
+export const createChartData = (data: any[], type: string) => {
     let builtStats: ChartData[];
     if (type === 'state') {
-        builtStats = buildState(data)
+        builtStats = buildStats(data, 'states')
     } else {
-        builtStats = buildCountry(data)
+        builtStats = buildStats(data, 'countries')
     }
     return builtStats
 }
 
-const buildState = (data: any) => {
+const buildStats = (data: any[], type: string) => {
     let stats: ChartData[] = [];
-    let recoveredStats: ChartData = {
-        id: 'Recovered',
-        data: []
-    };
-    let activeStats: ChartData = {
-        id: 'Active',
-        data: []
-    };
-    let confirmedStats: ChartData = {
-        id: 'Confrimed',
-        data: []
-    };
-    let deathStats: ChartData = {
-        id: 'Deaths',
-        data: []
-    };
 
-    data.forEach((day: any) => {
-        const date = day.date
+    for(let i=0; i<data.length;i+=30) {
+        const date = data[i].date
         let currentStats = {
             recovered: 0,
             active: 0,
             confirmed: 0,
             deaths: 0
         }
-        day.states.forEach((state: JSONData) => {
-            currentStats.recovered += state.recovered
-            currentStats.active += state.active
-            currentStats.confirmed += state.confirmed
-            currentStats.deaths += state.deaths
+        // sums all the values needed for that day
+        data[i][type].forEach((entry: JSONData) => {
+            currentStats.recovered += entry.recovered
+            currentStats.active += entry.active
+            currentStats.confirmed += entry.confirmed
+            currentStats.deaths += entry.deaths
         })
-        recoveredStats.data.push({
-            x: date,
-            y: currentStats.recovered
+        // one object per date goes into stats
+        stats.push({
+            date: date,
+            recovered: currentStats.recovered,
+            active: currentStats.active,
+            confirmed: currentStats.confirmed,
+            deaths: currentStats.deaths
         })
-        activeStats.data.push({
-            x: date,
-            y: currentStats.active
-        })
-        confirmedStats.data.push({
-            x: date,
-            y: currentStats.confirmed
-        })
-        deathStats.data.push({
-            x: date,
-            y: currentStats.deaths
-        })
-    });
+    }
 
-    stats.push(recoveredStats, activeStats, confirmedStats, deathStats)
-    return stats
-}
+    // data.forEach((day: any) => {
+    //     const date = day.date
+    //     let currentStats = {
+    //         recovered: 0,
+    //         active: 0,
+    //         confirmed: 0,
+    //         deaths: 0
+    //     }
+    //     // sums all the values needed for that day
+    //     day[type].forEach((entry: JSONData) => {
+    //         currentStats.recovered += entry.recovered
+    //         currentStats.active += entry.active
+    //         currentStats.confirmed += entry.confirmed
+    //         currentStats.deaths += entry.deaths
+    //     })
+    //     // one object per date goes into stats
+    //     stats.push({
+    //         date: date,
+    //         recovered: currentStats.recovered,
+    //         active: currentStats.active,
+    //         confirmed: currentStats.confirmed,
+    //         deaths: currentStats.deaths
+    //     })
+    // });
 
-const buildCountry = (data: any[]) => {
-    let stats: ChartData[] = [];
-    let recoveredStats: ChartData = {
-        id: 'Recovered',
-        data: []
-    };
-    let activeStats: ChartData = {
-        id: 'Active',
-        data: []
-    };
-    let confirmedStats: ChartData = {
-        id: 'Confrimed',
-        data: []
-    };
-    let deathStats: ChartData = {
-        id: 'Deaths',
-        data: []
-    };
-
-    data.forEach((day: any) => {
-        const date = day.date
-        let currentStats = {
-            recovered: 0,
-            active: 0,
-            confirmed: 0,
-            deaths: 0
-        }
-        day.countries.forEach((country: JSONData) => {
-            currentStats.recovered += country.recovered
-            currentStats.active += country.active
-            currentStats.confirmed += country.confirmed
-            currentStats.deaths += country.deaths
-        })
-        recoveredStats.data.push({
-            x: date,
-            y: currentStats.recovered
-        })
-        activeStats.data.push({
-            x: date,
-            y: currentStats.active
-        })
-        confirmedStats.data.push({
-            x: date,
-            y: currentStats.confirmed
-        })
-        deathStats.data.push({
-            x: date,
-            y: currentStats.deaths
-        })
-    });
-
-    stats.push(recoveredStats, activeStats, confirmedStats, deathStats)
     return stats
 }
 
@@ -125,14 +71,12 @@ interface JSONData {
     deaths: number
 }
 
-interface Data {
-    x: string,
-    y: number
-}
-
 export interface ChartData {
-    id: string,
-    data: Data[]
+    date: string,
+    recovered: number,
+    active: number,
+    confirmed: number,
+    deaths: number
 }
 
 // import { ResponsiveLine } from '@nivo/line'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ResponsiveLineCanvas } from '@nivo/line'
-import { deepOrange, green, red, amber, grey } from '@material-ui/core/colors';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { deepOrange, green, red, amber } from '@material-ui/core/colors';
+import { Chart, LineSeries, ArgumentAxis, ValueAxis, ZoomAndPan, Tooltip, Legend  } from '@devexpress/dx-react-chart-material-ui';
+import { ArgumentScale } from '@devexpress/dx-react-chart';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { RouteComponentProps } from 'react-router';
@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { State } from '../../utilities/StateObj';
 import { Country } from '../../utilities/CountryObj';
 import { ChartData, createChartData } from '../../utilities/chartUtils';
+import { Paper } from '@material-ui/core';
 
 interface RouterProps {
     state: string
@@ -21,17 +22,6 @@ interface ILineChartProps extends RouteComponentProps<RouterProps> {
 }
 
 const LineChart = ({ type, single, match, history }: ILineChartProps) => {
-    const theme = useTheme();
-
-    const chartTheme: any = {
-        axis: {
-            ticks: {
-                text: {
-                    fill: theme.palette.type === 'light' ? grey[800] : grey[200]
-                }
-            }
-        }
-    }
     const [name, setName] = useState<string>('')
     const [chartData, setChartData] = useState<ChartData[]>([])
 
@@ -92,63 +82,22 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
         return <span>Error</span>
     }
 
-    console.log(chartData)
-
     return (
-        <div style={{ height: '400px' }}>
-            <ResponsiveLineCanvas
+        <Paper>
+            <Chart
                 data={chartData}
-                margin={{ top: 50, right: 40, bottom: 55, left: 70 }}
-                xScale={{ type: "time", format: "%Y-%m-%d" }}
-                xFormat="time:%Y-%m-%d"
-                yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-                axisTop={null}
-                axisRight={null}
-                axisBottom={{
-                    format: "%b %Y",
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                }}
-                axisLeft={{
-                    orient: 'left',
-                    tickSize: 5,
-                    tickPadding: 5,
-                    tickRotation: 0,
-                }}
-                colors={[green[500], amber[600], deepOrange[400], red[500]]}
-                enablePoints={false}
-                enableGridX={false}
-                
-                theme={chartTheme}
-                legends={[
-                    {
-                        anchor: 'top-left',
-                        direction: 'column',
-                        justify: false,
-                        translateX: 15,
-                        translateY: 4,
-                        itemsSpacing: 0,
-                        itemDirection: 'left-to-right',
-                        itemWidth: 65,
-                        itemHeight: 20,
-                        itemOpacity: 0.75,
-                        symbolSize: 12,
-                        symbolShape: 'circle',
-                        symbolBorderColor: 'rgba(0, 0, 0, .5)',
-                        effects: [
-                            {
-                                on: 'hover',
-                                style: {
-                                    itemBackground: 'rgba(0, 0, 0, .03)',
-                                    itemOpacity: 1
-                                }
-                            }
-                        ]
-                    }
-                ]}
-            />
-        </div>
+            >
+                <ArgumentAxis />
+                <ValueAxis />
+                <Tooltip />
+                <Legend />
+                <LineSeries name="Confirmed" valueField="confirmed" argumentField="date" color={deepOrange[400]} />
+                <LineSeries name="Active" valueField="active" argumentField="date" color={amber[600]} />
+                <LineSeries name="Recovered" valueField="recovered" argumentField="date" color={green[500]} />
+                <LineSeries name="Deaths" valueField="deaths" argumentField="date" color={red[500]} />
+                <ZoomAndPan interactionWithArguments="both" interactionWithValues="both" />
+            </Chart>
+        </Paper>
     );
 }
 
