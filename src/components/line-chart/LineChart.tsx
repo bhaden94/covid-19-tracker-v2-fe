@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { deepOrange, green, red, amber } from '@material-ui/core/colors';
-import { Chart, LineSeries, ArgumentAxis, ValueAxis, ZoomAndPan, Tooltip, Legend  } from '@devexpress/dx-react-chart-material-ui';
-import { ArgumentScale } from '@devexpress/dx-react-chart';
+import {
+    Chart,
+    Series,
+    ArgumentAxis,
+    CommonSeriesSettings,
+    Legend,
+    LoadingIndicator,
+    Margin,
+    Title,
+    Tooltip,
+    Point,
+    Grid
+} from 'devextreme-react/chart';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { RouteComponentProps } from 'react-router';
@@ -10,6 +21,8 @@ import { State } from '../../utilities/StateObj';
 import { Country } from '../../utilities/CountryObj';
 import { ChartData, createChartData } from '../../utilities/chartUtils';
 import { Paper } from '@material-ui/core';
+import TooltipTemplate from './TooltipTemplate';
+import useTheme from '@material-ui/core/styles/useTheme';
 
 interface RouterProps {
     state: string
@@ -22,6 +35,7 @@ interface ILineChartProps extends RouteComponentProps<RouterProps> {
 }
 
 const LineChart = ({ type, single, match, history }: ILineChartProps) => {
+    const theme = useTheme();
     const [name, setName] = useState<string>('')
     const [chartData, setChartData] = useState<ChartData[]>([])
 
@@ -85,17 +99,40 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
     return (
         <Paper>
             <Chart
-                data={chartData}
+                dataSource={chartData}
             >
-                <ArgumentAxis />
-                <ValueAxis />
-                <Tooltip />
-                <Legend />
-                <LineSeries name="Confirmed" valueField="confirmed" argumentField="date" color={deepOrange[400]} />
-                <LineSeries name="Active" valueField="active" argumentField="date" color={amber[600]} />
-                <LineSeries name="Recovered" valueField="recovered" argumentField="date" color={green[500]} />
-                <LineSeries name="Deaths" valueField="deaths" argumentField="date" color={red[500]} />
-                <ZoomAndPan interactionWithArguments="both" interactionWithValues="both" />
+                <LoadingIndicator enabled={true} />
+                <CommonSeriesSettings
+                    argumentField="date"
+                    type='line'
+                >
+                    <Point visible={false} />
+                </CommonSeriesSettings>
+                <Series valueField='recovered' name='Recovered' color={green[500]} />
+                <Series valueField='active' name='Active' color={amber[600]} />
+                <Series valueField='confirmed' name='Confirmed' color={deepOrange[400]} />
+                <Series valueField='deaths' name='Deaths' color={red[500]} />
+
+                <Margin bottom={20} />
+                <ArgumentAxis
+                    valueMarginsEnabled={false}
+                    discreteAxisDivisionMode="crossLabels"
+                >
+                    <Grid visible={false} />
+                </ArgumentAxis>
+                <Legend
+                    verticalAlignment="bottom"
+                    horizontalAlignment="center"
+                    itemTextPosition="bottom"
+                />
+                <Title text="Covid-19 Data Over Time" font={{color: theme.palette.text.secondary}} />
+                <Tooltip
+                    enabled={true}
+                    border={{color: theme.palette.background.paper}}
+                    cornerRadius='5'
+                    color={theme.palette.background.paper}
+                    contentRender={TooltipTemplate}
+                />
             </Chart>
         </Paper>
     );

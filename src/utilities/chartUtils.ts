@@ -11,7 +11,7 @@ export const createChartData = (data: any[], type: string) => {
 const buildStats = (data: any[], type: string) => {
     let stats: ChartData[] = [];
 
-    for(let i=0; i<data.length;i+=30) {
+    for(let i=0; i<data.length;i+=5) {
         const date = data[i].date
         let currentStats = {
             recovered: 0,
@@ -35,31 +35,6 @@ const buildStats = (data: any[], type: string) => {
             deaths: currentStats.deaths
         })
     }
-
-    // data.forEach((day: any) => {
-    //     const date = day.date
-    //     let currentStats = {
-    //         recovered: 0,
-    //         active: 0,
-    //         confirmed: 0,
-    //         deaths: 0
-    //     }
-    //     // sums all the values needed for that day
-    //     day[type].forEach((entry: JSONData) => {
-    //         currentStats.recovered += entry.recovered
-    //         currentStats.active += entry.active
-    //         currentStats.confirmed += entry.confirmed
-    //         currentStats.deaths += entry.deaths
-    //     })
-    //     // one object per date goes into stats
-    //     stats.push({
-    //         date: date,
-    //         recovered: currentStats.recovered,
-    //         active: currentStats.active,
-    //         confirmed: currentStats.confirmed,
-    //         deaths: currentStats.deaths
-    //     })
-    // });
 
     return stats
 }
