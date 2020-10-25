@@ -4,6 +4,7 @@ import {
     Chart,
     Series,
     ArgumentAxis,
+    Aggregation,
     CommonSeriesSettings,
     Legend,
     LoadingIndicator,
@@ -106,7 +107,11 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                     argumentField="date"
                     type='line'
                 >
-                    <Point visible={false} />
+                    <Point visible={true} size='8' />
+                    <Aggregation
+                        enabled={true}
+                        method="max"
+                    />
                 </CommonSeriesSettings>
                 <Series valueField='recovered' name='Recovered' color={green[500]} />
                 <Series valueField='active' name='Active' color={amber[600]} />
@@ -115,7 +120,9 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 
                 <Margin bottom={20} />
                 <ArgumentAxis
-                    valueMarginsEnabled={false}
+                    aggregationInterval={{days: 7}}
+                    valueMarginsEnabled={true}
+                    argumentType='datetime'
                     discreteAxisDivisionMode="crossLabels"
                 >
                     <Grid visible={false} />
@@ -125,10 +132,10 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                     horizontalAlignment="center"
                     itemTextPosition="bottom"
                 />
-                <Title text="Covid-19 Data Over Time" font={{color: theme.palette.text.secondary}} />
+                <Title text="Covid-19 Data Over Time" font={{ color: theme.palette.text.secondary }} />
                 <Tooltip
                     enabled={true}
-                    border={{color: theme.palette.background.paper}}
+                    border={{ color: theme.palette.background.paper }}
                     cornerRadius='5'
                     color={theme.palette.background.paper}
                     contentRender={TooltipTemplate}

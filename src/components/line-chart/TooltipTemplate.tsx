@@ -5,7 +5,7 @@ const TooltipTemplate = (pointInfo: any) => {
     return (
         <div>
             <Typography color='textSecondary' align='center'>
-                {pointInfo.argument}
+                {pointInfo.argument.toLocaleDateString()}
             </Typography>
             <Typography color='textSecondary' align='center'>
                 {pointInfo.value.toLocaleString()}

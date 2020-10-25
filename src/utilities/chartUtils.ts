@@ -11,7 +11,7 @@ export const createChartData = (data: any[], type: string) => {
 const buildStats = (data: any[], type: string) => {
     let stats: ChartData[] = [];
 
-    for(let i=0; i<data.length;i+=5) {
+    for(let i=0; i<data.length;i+=1) {
         const date = data[i].date
         let currentStats = {
             recovered: 0,

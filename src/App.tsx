@@ -13,6 +13,7 @@ import { fetchData } from './queries/fetchData'
 import TableRoutes from './components/table/TableRoutes';
 import LineChartRoutes from './components/line-chart/LineChartRoutes';
 import Grid from '@material-ui/core/Grid';
+import 'devextreme/dist/css/dx.common.css';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
