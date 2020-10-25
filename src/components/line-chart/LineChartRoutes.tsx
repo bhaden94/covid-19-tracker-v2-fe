@@ -8,15 +8,15 @@ const LineChartRoutes = () => {
             <Route exact path="/united_states" 
                 render={() => <LineChart type='state' single={false} />} 
             />
-            {/* <Route exact path="/united_states/:state" 
+            <Route exact path="/united_states/:state" 
                 render={() => <LineChart type='state' single={true} />} 
-            /> */}
+            />
             <Route exact path="/world" 
                 render={() => <LineChart type='country' single={false} />} 
             />
-            {/* <Route exact path="/world/:country" 
+            <Route exact path="/world/:country" 
                 render={() => <LineChart type='country' single={true} />} 
-            /> */}
+            />
         </Switch>
     );
 };
