@@ -12,7 +12,8 @@ import {
     Title,
     Tooltip,
     Point,
-    Grid
+    Grid,
+    ZoomAndPan
 } from 'devextreme-react/chart';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
@@ -102,6 +103,7 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
             <Chart
                 dataSource={chartData}
             >
+                <Title text="Covid-19 Data Over Time" font={{ color: theme.palette.text.secondary }} />
                 <LoadingIndicator enabled={true} />
                 <CommonSeriesSettings
                     argumentField="date"
@@ -113,14 +115,9 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                         method="max"
                     />
                 </CommonSeriesSettings>
-                <Series valueField='recovered' name='Recovered' color={green[500]} />
-                <Series valueField='active' name='Active' color={amber[600]} />
-                <Series valueField='confirmed' name='Confirmed' color={deepOrange[400]} />
-                <Series valueField='deaths' name='Deaths' color={red[500]} />
-
-                <Margin bottom={20} />
+                <Margin bottom={20} right={15} left={15} />
                 <ArgumentAxis
-                    aggregationInterval={{days: 7}}
+                    aggregationInterval={{ weeks: 1 }}
                     valueMarginsEnabled={true}
                     argumentType='datetime'
                     discreteAxisDivisionMode="crossLabels"
@@ -132,7 +129,6 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                     horizontalAlignment="center"
                     itemTextPosition="bottom"
                 />
-                <Title text="Covid-19 Data Over Time" font={{ color: theme.palette.text.secondary }} />
                 <Tooltip
                     enabled={true}
                     border={{ color: theme.palette.background.paper }}
@@ -140,6 +136,11 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                     color={theme.palette.background.paper}
                     contentRender={TooltipTemplate}
                 />
+                <ZoomAndPan argumentAxis="both" />
+                <Series valueField='recovered' name='Recovered' color={green[500]} />
+                <Series valueField='active' name='Active' color={amber[600]} />
+                <Series valueField='confirmed' name='Confirmed' color={deepOrange[400]} />
+                <Series valueField='deaths' name='Deaths' color={red[500]} />
             </Chart>
         </Paper>
     );
