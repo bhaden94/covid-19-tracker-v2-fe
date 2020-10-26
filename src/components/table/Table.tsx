@@ -12,6 +12,7 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import { queryCache, useQuery } from 'react-query'
 import { fetchData } from '../../queries/fetchData'
 import { daysChanged } from '../../utilities/tableUtils'
+import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
 
 
 interface RouterProps {
@@ -74,13 +75,13 @@ const Table = ({ type, location }: ITableProps) => {
     ]
 
     const options: any = {
-        minBodyHeight: '600px',
         pageSizeOptions: [10, 25, 50],
         pageSize: 10,
         showTitle: false,
         searchFieldAlignment: 'left',
         exportAllData: true,
-        exportButton: true
+        exportButton: true,
+        padding: 'dense'
     }
 
     useEffect(() => {
@@ -88,7 +89,16 @@ const Table = ({ type, location }: ITableProps) => {
     }, [type])
 
     if (isLoading) {
-        return <span>Loading...</span>
+        return (
+            <Skeleton
+                variant="rect"
+                width='100%'
+                animation="wave"
+                style={{ borderRadius: '5px' }}
+            >
+                <MaterialTable columns={columns} options={options} data={[]} />
+            </Skeleton>
+        )
     }
 
     if (isError) {
