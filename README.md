@@ -1,3 +1,5 @@
+## The is the React frontend for my Covid-19 tracker version 2. It is still in development and this read me has not been updated yet.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
