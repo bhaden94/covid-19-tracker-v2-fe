@@ -41,10 +41,10 @@ function App() {
             <Grid item xs={12}>
               <Route path="/" component={TotalsRoutes} />
             </Grid>
-            <Grid item xs={12} sm={8} md={6} lg={4}>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
               <Route path="/" component={TableRoutes} />
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={8}>
+            <Grid item xs={12} sm={12} md={12} lg={8} xl={9}>
               <Route path="/" component={LineChartRoutes} />
             </Grid>
           </Grid>
