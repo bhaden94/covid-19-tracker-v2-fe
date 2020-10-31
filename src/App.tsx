@@ -14,6 +14,7 @@ import TableRoutes from './components/table/TableRoutes';
 import LineChartRoutes from './components/line-chart/LineChartRoutes';
 import Grid from '@material-ui/core/Grid';
 import 'devextreme/dist/css/dx.common.css';
+import RateRoutes from './components/rates/RateRoutes';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
@@ -43,6 +44,12 @@ function App() {
             </Grid>
             <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
               <Route path="/" component={TableRoutes} />
+            </Grid>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
+              <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
+            </Grid>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
+              <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={8} xl={9}>
               <Route path="/" component={LineChartRoutes} />
