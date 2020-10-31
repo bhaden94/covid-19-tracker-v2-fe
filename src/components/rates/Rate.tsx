@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
-import { makeStyles, Paper, Typography } from '@material-ui/core';
+import { Card, CardContent, makeStyles, Typography } from '@material-ui/core';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { State } from '../../utilities/StateObj';
@@ -98,14 +98,16 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
     }
 
     return (
-        <Paper>
-            <Typography className={classes.title} color='textSecondary' gutterBottom variant='h3' align='center'>
-                <u>{title}</u>
-            </Typography>
-            <Typography color='textSecondary' gutterBottom align='center'>
-                {rateNumber}{rate === 'mortality_rate' && '%'}
-            </Typography>
-        </Paper>
+        <Card>
+            <CardContent>
+                <Typography className={classes.title} color='textSecondary' gutterBottom align='center'>
+                    <u>{title}</u>
+                </Typography>
+                <Typography color='textSecondary' gutterBottom align='center'>
+                    {rateNumber}{rate === 'mortality_rate' && '%'}
+                </Typography>
+            </CardContent>
+        </Card>
     );
 };
 

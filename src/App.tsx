@@ -37,23 +37,36 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
-        <div style={{ padding: 24 }}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Route path="/" component={TotalsRoutes} />
+        <div style={{ padding: 20 }}>
+          <Grid container spacing={2}>
+
+            <Grid item container xs={12} spacing={2}>
+              <Grid item xs={12}>
+                <Route path="/" component={TotalsRoutes} />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
-              <Route path="/" component={TableRoutes} />
+
+            <Grid container xs={12} sm={8} md={6} lg={4} xl={4}>
+              <Grid item xs>
+                <Route path="/" component={TableRoutes} />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
-              <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
+
+            <Grid container sm={4} md={6} lg={8} spacing={2}>
+              <Grid item xs={12} sm={12} md={6}>
+                <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
-              <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
+
+            <Grid container md={6} lg={8}>
+              <Grid item xs={12}>
+                <Route path="/" component={LineChartRoutes} />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={8} xl={9}>
-              <Route path="/" component={LineChartRoutes} />
-            </Grid>
+
           </Grid>
         </div>
       </BrowserRouter>
