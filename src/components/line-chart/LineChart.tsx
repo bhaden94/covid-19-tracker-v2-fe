@@ -25,6 +25,7 @@ import { ChartData, createChartData } from '../../utilities/chartUtils';
 import { Paper } from '@material-ui/core';
 import TooltipTemplate from './TooltipTemplate';
 import useTheme from '@material-ui/core/styles/useTheme';
+import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
 
 interface RouterProps {
     state: string
@@ -90,11 +91,15 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
         }
     }, [name, match, history])
 
-    if (isLoading) {
-        return <span>Loading...</span>
+    if (isLoading || specificData.isLoading) {
+        return (
+            <Skeleton variant="rect" width='100%' animation="wave" style={{borderRadius: '5px'}}>
+                <Chart />
+            </Skeleton>
+        )
     }
 
-    if (isError) {
+    if (isError || specificData.isError) {
         return <span>Error</span>
     }
 
@@ -103,7 +108,7 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
             <Chart
                 dataSource={chartData}
             >
-                <Title text="Covid-19 Data Over Time" font={{ color: theme.palette.text.secondary }} />
+                <Title text="Data Over Time" font={{ color: theme.palette.text.secondary }} />
                 <LoadingIndicator enabled={true} />
                 <CommonSeriesSettings
                     argumentField="date"

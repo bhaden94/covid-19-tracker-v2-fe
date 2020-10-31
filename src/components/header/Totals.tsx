@@ -11,10 +11,10 @@ import { createStats } from '../../utilities/statUtilities'
 import Stat from './Stat';
 import { State } from '../../utilities/StateObj'
 import { Country } from '../../utilities/CountryObj';
+import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100px',
         margin: '1% 0'
     },
     padTop: {
@@ -105,22 +105,22 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 
     useEffect(() => {
         let query = ''
-        if(match.params.state) {
+        if (match.params.state) {
             query = match.params.state.toLowerCase().split(' ').join('_')
-        } else if(match.params.country) {
+        } else if (match.params.country) {
             // country needs regex to handle dashes as well as spaces in the name
             query = match.params.country.toLowerCase().split(/[\s -]+/).join('_')
         }
-        
+
         if (match.params.state) {
-            if(State.hasOwnProperty(query)) {
+            if (State.hasOwnProperty(query)) {
                 setName(State[query])
             } else {
                 // trying to get invalid state
                 history.push('/united_states')
             }
         } else if (match.params.country) {
-            if(Country.hasOwnProperty(query)) {
+            if (Country.hasOwnProperty(query)) {
                 setName(Country[query])
             } else {
                 // trying to get invalid country
@@ -129,11 +129,18 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
         }
     }, [name, match, history])
 
-    if (isLoading) {
-        return <span>Loading...</span>
+    if (isLoading || specificData.isLoading) {
+        return (
+            <Skeleton variant="rect" width='100%' animation="wave" style={{borderRadius: '5px'}}>
+                <Paper className={classes.container}>
+                    <Typography className={classes.title} />
+                    <Stat name='' stat={0} properties='' />
+                </Paper>
+            </Skeleton>
+        )
     }
 
-    if (isError) {
+    if (isError || specificData.isError) {
         return <span>Error</span>
     }
 
@@ -144,7 +151,7 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
                 spacing={0}
             >
                 <Grid item xs={12} className={classes.padTop}>
-                    <Typography className={classes.title} color='textSecondary' gutterBottom variant='h1' align='center'>
+                    <Typography className={classes.title} color='textSecondary' gutterBottom variant='h2' align='center'>
                         {title || name}
                     </Typography>
                 </Grid>
