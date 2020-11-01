@@ -98,7 +98,7 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
     }
 
     return (
-        <Card>
+        <Card style={{}}>
             <CardContent>
                 <Typography className={classes.title} color='textSecondary' gutterBottom align='center'>
                     <u>{title}</u>

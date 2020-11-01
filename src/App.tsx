@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ThemeProvider from './themes';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import './App.css'
 import ThemeSwitcher from './components/theme-switcher/ThemeSwitcher';
 import useTheme from '@material-ui/core/styles/useTheme';
@@ -24,8 +26,9 @@ const prefetchCountries = async () => {
   await queryCache.prefetchQuery('country', () => fetchData('country'))
 }
 
-function App() {
+function App(props: { width: Breakpoint }) {
   const theme = useTheme();
+  const { width } = props
 
   useEffect(() => {
     prefetchStates();
@@ -40,32 +43,32 @@ function App() {
         <div style={{ padding: 20 }}>
           <Grid container spacing={2}>
 
-            <Grid item container xs={12} spacing={2}>
-              <Grid item xs={12}>
-                <Route path="/" component={TotalsRoutes} />
-              </Grid>
+            <Grid item xs={12}>
+              <Route path="/" component={TotalsRoutes} />
             </Grid>
 
-            <Grid container xs={12} sm={8} md={6} lg={4} xl={4}>
-              <Grid item xs>
-                <Route path="/" component={TableRoutes} />
-              </Grid>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={4}>
+              <Route path="/" component={TableRoutes} />
             </Grid>
 
-            <Grid container sm={4} md={6} lg={8} spacing={2}>
-              <Grid item xs={12} sm={12} md={6}>
+            <Grid container sm={4} md={6} lg={8} spacing={1} alignItems='center'>
+              <Grid item xs={12} lg={6}>
                 <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
               </Grid>
-              <Grid item xs={12} sm={12} md={6}>
+              <Grid item xs={12} lg={6}>
                 <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
               </Grid>
+              {isWidthUp("lg", width) &&
+                <Grid item xs={12}>
+                  <Route path="/" component={LineChartRoutes} />
+                </Grid>
+              }
             </Grid>
-
-            <Grid container md={6} lg={8}>
+            {isWidthDown("md", width) &&
               <Grid item xs={12}>
                 <Route path="/" component={LineChartRoutes} />
               </Grid>
-            </Grid>
+            }
 
           </Grid>
         </div>
@@ -76,4 +79,4 @@ function App() {
   );
 }
 
-export default App;
+export default withWidth()(App);

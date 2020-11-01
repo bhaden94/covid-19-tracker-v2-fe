@@ -81,7 +81,7 @@ const Table = ({ type, location }: ITableProps) => {
         searchFieldAlignment: 'left',
         exportAllData: true,
         exportButton: true,
-        padding: 'dense'
+        padding: 'dense',
     }
 
     useEffect(() => {
