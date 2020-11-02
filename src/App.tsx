@@ -7,7 +7,7 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import './App.css'
 import ThemeSwitcher from './components/theme-switcher/ThemeSwitcher';
 import useTheme from '@material-ui/core/styles/useTheme';
-import TotalsRoutes from './components/header/TotalsRoutes';
+import TotalsRoutes from './components/total/TotalsRoutes';
 import Navbar from './components/nav/Navbar';
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { queryCache } from 'react-query'
