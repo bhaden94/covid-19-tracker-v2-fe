@@ -50,7 +50,7 @@ function App(props: { width: Breakpoint }) {
             </Grid>
 
             <Grid item xs={12} sm={4} md={6} lg={8}>
-              <Grid container spacing={3}>
+              <Grid container style={{height: '100%'}} spacing={3} alignItems='center'>
                 <Grid item xs={12} lg={6}>
                   <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
                 </Grid>
