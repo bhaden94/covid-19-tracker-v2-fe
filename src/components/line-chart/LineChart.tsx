@@ -104,7 +104,7 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
     }
 
     return (
-        <Paper style={{marginTop: '8px'}}>
+        <Paper>
             <Chart
                 dataSource={chartData}
             >

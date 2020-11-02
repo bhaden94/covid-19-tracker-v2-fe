@@ -40,29 +40,29 @@ function App(props: { width: Breakpoint }) {
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
-        <div style={{ padding: 20 }}>
-          <Grid container spacing={2}>
-
+        <div style={{ padding: '20px' }}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <Route path="/" component={TotalsRoutes} />
             </Grid>
-
-            <Grid item xs={12} sm={8} md={6} lg={4} xl={4}>
+            <Grid item xs={12} sm={8} md={6} lg={4}>
               <Route path="/" component={TableRoutes} />
             </Grid>
 
-            <Grid container sm={4} md={6} lg={8} spacing={1} alignItems='center'>
-              <Grid item xs={12} lg={6}>
-                <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
-              </Grid>
-              {isWidthUp("lg", width) &&
-                <Grid item xs={12}>
-                  <Route path="/" component={LineChartRoutes} />
+            <Grid item xs={12} sm={4} md={6} lg={8}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} lg={6}>
+                  <Route path="/" render={() => <RateRoutes rate='incident_rate' />} />
                 </Grid>
-              }
+                <Grid item xs={12} lg={6}>
+                  <Route path="/" render={() => <RateRoutes rate='mortality_rate' />} />
+                </Grid>
+                {isWidthUp("lg", width) &&
+                  <Grid item xs={12}>
+                    <Route path="/" component={LineChartRoutes} />
+                  </Grid>
+                }
+              </Grid>
             </Grid>
             {isWidthDown("md", width) &&
               <Grid item xs={12}>
