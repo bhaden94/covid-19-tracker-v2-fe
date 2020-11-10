@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
-import { Card, CardContent, makeStyles, Typography } from '@material-ui/core';
+import { Card, CardContent, makeStyles, Typography, Tooltip } from '@material-ui/core';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { State } from '../../utilities/StateObj';
@@ -32,6 +32,7 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
     const [title, setTitle] = useState<string>('')
     const [name, setName] = useState<string>('')
     const [rateNumber, setRateNumber] = useState<number>()
+    const [tooltipTitle, setTooltipTitle] = useState<string>('')
 
     // for us and world stats
     const { isLoading, isError, data } = useQuery(type, fetchData, {
@@ -83,7 +84,12 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
     }, [name, match, history])
 
     useEffect(() => {
-        rate === 'incident_rate' ? setTitle('Incident Rate') : setTitle('Mortality Rate')
+        if(rate === 'incident_rate') {
+            setTitle('Incident Rate')
+            setTooltipTitle('Per 100,000 persons')
+        } else {
+            setTitle('Mortality Rate')
+        }
     }, [rate])
 
     if (isLoading || specificData.isLoading) {
@@ -103,9 +109,11 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
                 <Typography className={classes.title} color='textSecondary' gutterBottom align='center'>
                     <u>{title}</u>
                 </Typography>
-                <Typography color='textSecondary' gutterBottom align='center'>
-                    {rateNumber}{rate === 'mortality_rate' && '%'}
-                </Typography>
+                <Tooltip title={tooltipTitle} enterTouchDelay={50} arrow>
+                    <Typography color='textSecondary' gutterBottom align='center'>
+                        {rateNumber}{rate === 'mortality_rate' && '%'}
+                    </Typography>
+                </Tooltip>
             </CardContent>
         </Card>
     );
