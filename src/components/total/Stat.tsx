@@ -29,7 +29,7 @@ export default function Stat({ name, stat, properties }: IStatProps) {
     }, [stat])
 
     return (
-        <Grid item xs={6} sm={6} md={3} className={classes.padTop}>
+        <Grid item xs={6} md={3} className={classes.padTop}>
             <Typography color='textSecondary' className={classes.font} variant='h2' align='center'>
                 <u>{name}</u>
             </Typography><br />
