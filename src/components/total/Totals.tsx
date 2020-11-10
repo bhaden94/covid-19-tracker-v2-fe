@@ -15,7 +15,7 @@ import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
 
 const useStyles = makeStyles({
     container: {
-        margin: '1% 0'
+        margin: '0'
     },
     padTop: {
         paddingTop: '10px',
