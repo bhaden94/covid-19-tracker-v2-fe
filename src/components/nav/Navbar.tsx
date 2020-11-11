@@ -13,6 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { makeStyles } from '@material-ui/core/styles';
+import ThemeSwitcher from '../theme-switcher/ThemeSwitcher';
 
 const drawerWidth = 240
 
@@ -81,6 +82,8 @@ const Navbar = ({ location, history }: RouteComponentProps) => {
                         <ChevronLeftIcon color='primary' />
                     </IconButton>
                 </div>
+                <Divider />
+                <ThemeSwitcher />
                 <Divider />
                 <List>
                     <ListItem button component={Link} to="/united_states">
