@@ -4,13 +4,13 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Switch from '@material-ui/core/Switch/Switch';
 
-const useStyles = makeStyles({
-  root: {
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//   },
+// });
 
 const ThemeSwitcher: React.FC = ()=>{
-  const classes = useStyles();
+  // const classes = useStyles();
   const theme = useTheme();
   const changeTheme = useChangeTheme();
   const checked = theme.palette.type === 'dark'
