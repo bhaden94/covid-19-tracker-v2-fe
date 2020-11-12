@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -14,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { makeStyles } from '@material-ui/core/styles';
 import ThemeSwitcher from '../theme-switcher/ThemeSwitcher';
+import Header from '../header/Header';
 
 const drawerWidth = 240
 
@@ -59,14 +60,18 @@ const Navbar = ({ location, history }: RouteComponentProps) => {
 
     return (
         <div>
-            <AppBar color='transparent' position="fixed" elevation={0} square={true}>
+            <AppBar color='transparent' position="sticky" elevation={0} square={true}>
                 <Toolbar>
-                    <IconButton edge="start" color="primary" aria-label="open drawer" onClick={handleDrawerOpen}>
-                        <MenuIcon />
+                    <IconButton edge="start" color="primary" aria-label="open drawer"
+                    style={{position: 'absolute'}}
+                        onClick={handleDrawerOpen}
+                    >
+                        <MenuRoundedIcon fontSize='large' />
                     </IconButton>
+                    <Header />
                 </Toolbar>
             </AppBar>
-            <Typography variant="h2" color='primary' align='center'>Covid-19 Tracker</Typography>
+
             <SwipeableDrawer
                 className={classes.drawer}
                 anchor="left"
