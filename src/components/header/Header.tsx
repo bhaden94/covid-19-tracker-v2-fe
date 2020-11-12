@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         flexGrow: 1,
         align: 'center',
-        padding: '25px 25px 10px'
+        padding: '0 25px'
     }
 }));
 

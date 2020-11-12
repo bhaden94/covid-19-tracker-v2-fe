@@ -19,6 +19,9 @@ import Header from '../header/Header';
 const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
+    bar: {
+        padding: '25px 0 10px'
+    },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -60,7 +63,9 @@ const Navbar = ({ location, history }: RouteComponentProps) => {
 
     return (
         <div>
-            <AppBar color='transparent' position="sticky" elevation={0} square={true}>
+            <AppBar color='transparent' position="sticky" elevation={0} square={true}
+                className={classes.bar}
+            >
                 <Toolbar>
                     <IconButton edge="start" color="primary" aria-label="open drawer"
                     style={{position: 'absolute'}}
