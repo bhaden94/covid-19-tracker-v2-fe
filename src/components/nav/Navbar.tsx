@@ -1,18 +1,47 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import { RouteComponentProps } from 'react-router';
 import { Link, withRouter } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Toolbar from '@material-ui/core/Toolbar';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { makeStyles } from '@material-ui/core/styles';
+import ThemeSwitcher from '../theme-switcher/ThemeSwitcher';
+import Header from '../header/Header';
 
-const Navbar = ({location, history}: RouteComponentProps) => {
-    const [tab, setTab] = useState<number>(0);
-    const routes: string[] = ['/united_states', '/world']
+const drawerWidth = 240
 
-    const handleChange = (_event: any, newValue: React.SetStateAction<number>) => {
-        setTab(newValue);
-    };
+const useStyles = makeStyles(theme => ({
+    bar: {
+        padding: '25px 0 10px'
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
+    }
+}));
+
+const Navbar = ({ location, history }: RouteComponentProps) => {
+    const classes = useStyles();
+    const [open, setOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (location.pathname === '/') {
@@ -21,24 +50,61 @@ const Navbar = ({location, history}: RouteComponentProps) => {
     }, [location.pathname, history])
 
     useEffect(() => {
-        if (routes.indexOf(location.pathname) !== -1) {
-            setTab(routes.indexOf(location.pathname))
-        }
-    }, [location.pathname, routes])
+        handleDrawerClose();
+    }, [location.pathname])
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     return (
-        <AppBar className="appbar" position="static" color="transparent" elevation={0} square={true}>
-            <Tabs
-                value={tab}
-                onChange={handleChange}
-                indicatorColor="primary"
-                textColor="primary"
-                centered
+        <div>
+            <AppBar color='transparent' position="sticky" elevation={0} square={true}
+                className={classes.bar}
             >
-                <Tab label="United States" component={Link} to="/united_states" />
-                <Tab label="Global" component={Link} to="/world" />
-            </Tabs>
-        </AppBar>
+                <Toolbar>
+                    <IconButton edge="start" color="primary" aria-label="open drawer"
+                    style={{position: 'absolute'}}
+                        onClick={handleDrawerOpen}
+                    >
+                        <MenuRoundedIcon fontSize='large' />
+                    </IconButton>
+                    <Header />
+                </Toolbar>
+            </AppBar>
+
+            <SwipeableDrawer
+                className={classes.drawer}
+                anchor="left"
+                open={open}
+                onClose={handleDrawerClose}
+                onOpen={handleDrawerOpen}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon color='primary' />
+                    </IconButton>
+                </div>
+                <Divider />
+                <ThemeSwitcher />
+                <Divider />
+                <List>
+                    <ListItem button component={Link} to="/united_states">
+                        <Typography color='textSecondary' align='center'>United States</Typography>
+                    </ListItem>
+                    <ListItem button component={Link} to="/world">
+                        <Typography color='textSecondary' align='center'>Global</Typography>
+                    </ListItem>
+                </List>
+            </SwipeableDrawer>
+        </div>
     );
 }
 

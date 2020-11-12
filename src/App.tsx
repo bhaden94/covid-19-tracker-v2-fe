@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import './App.css'
-import ThemeSwitcher from './components/theme-switcher/ThemeSwitcher';
 import useTheme from '@material-ui/core/styles/useTheme';
 import TotalsRoutes from './components/total/TotalsRoutes';
 import Navbar from './components/nav/Navbar';
@@ -73,7 +72,6 @@ function App(props: { width: Breakpoint }) {
           </Grid>
         </div>
       </BrowserRouter>
-      <ThemeSwitcher />
       <ReactQueryDevtools initialIsOpen={false} />
     </ThemeProvider>
   );
