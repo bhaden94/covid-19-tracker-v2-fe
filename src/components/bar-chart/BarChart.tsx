@@ -3,15 +3,14 @@ import { deepOrange, green, red, amber } from '@material-ui/core/colors';
 import {
     Chart,
     Series,
-    ArgumentAxis,
     CommonSeriesSettings,
     Legend,
     LoadingIndicator,
     Margin,
     Title,
-    Grid,
     Label,
-    Format
+    Format,
+    Size,
 } from 'devextreme-react/chart';
 import { useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
@@ -23,6 +22,7 @@ import { BarChartData, createChartData } from '../../utilities/barChartUtils';
 import { Paper } from '@material-ui/core';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
+import { makeStyles } from '@material-ui/core/styles';
 
 interface RouterProps {
     state: string
@@ -33,8 +33,15 @@ interface IBarChartProps extends RouteComponentProps<RouterProps> {
     type: string,
 }
 
+const useStyles = makeStyles(() => ({
+    paper: {
+        height: '100%'
+    }
+}));
+
 const BarChart = ({ type, match, history }: IBarChartProps) => {
     const theme = useTheme();
+    const classes = useStyles();
     const [name, setName] = useState<string>('')
     const [chartData, setChartData] = useState<BarChartData[]>([])
 
@@ -88,37 +95,32 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
         return <span>Error</span>
     }
 
+    // currently getting wierd problems with rendering chart and it not being that right size
+    // possibly submit a bug ticket here if I can't figure it out
+    // https://github.com/DevExpress/devextreme-react/issues/new/choose
     return (
-        <Paper>
+        <Paper className={classes.paper}>
             <Chart
+                id="chart"
+                className={classes.paper}
                 dataSource={chartData}
             >
-                <Title text="Data Over Time" font={{ color: theme.palette.text.secondary }} />
+                <Title text="Incident Rate Comparison" font={{ color: theme.palette.text.secondary }} />
                 <LoadingIndicator enabled={true} />
                 <CommonSeriesSettings
                     argumentField="rate"
-                    type='bar'
+                    type="bar"
+                    hoverMode="allArgumentPoints"
+                    selectionMode="allArgumentPoints"
                 >
                     <Label visible={true}>
                         <Format type="fixedPoint" precision={0} />
                     </Label>
                 </CommonSeriesSettings>
-                <Margin bottom={20} right={15} left={15} />
-                <ArgumentAxis
-                    aggregationInterval={{ weeks: 1 }}
-                    valueMarginsEnabled={true}
-                    argumentType='datetime'
-                    discreteAxisDivisionMode="crossLabels"
-                >
-                    <Grid visible={false} />
-                </ArgumentAxis>
-                <Legend
-                    verticalAlignment="bottom"
-                    horizontalAlignment="center"
-                    itemTextPosition="bottom"
-                />
-                <Series argumentField="rate" valueField='state_country' name={name} color={green[500]} />
-                <Series argumentField="rate" valueField='us_world' name='us_world' color={amber[500]} />
+                <Margin right={15} left={15} />
+                <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
+                <Series valueField='state_country' name={name} color={green[500]} />
+                <Series valueField='us_world' name='us_world' color={amber[500]} />
             </Chart>
         </Paper>
     );
