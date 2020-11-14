@@ -11,7 +11,7 @@ import Navbar from './components/nav/Navbar';
 import { ReactQueryDevtools } from 'react-query-devtools'
 import { queryCache } from 'react-query'
 import { fetchData } from './queries/fetchData'
-import TableRoutes from './components/table/TableRoutes';
+import TableBarChartRoutes from './components/table/TableBarChartRoutes';
 import LineChartRoutes from './components/line-chart/LineChartRoutes';
 import Grid from '@material-ui/core/Grid';
 import 'devextreme/dist/css/dx.common.css';
@@ -45,7 +45,7 @@ function App(props: { width: Breakpoint }) {
               <Route path="/" component={TotalsRoutes} />
             </Grid>
             <Grid item xs={12} sm={8} md={6} lg={4}>
-              <Route path="/" component={TableRoutes} />
+              <Route path="/" component={TableBarChartRoutes} />
             </Grid>
 
             <Grid item xs={12} sm={4} md={6} lg={8}>

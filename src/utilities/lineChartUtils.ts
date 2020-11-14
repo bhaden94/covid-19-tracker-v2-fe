@@ -1,5 +1,5 @@
 export const createChartData = (data: any[], type: string) => {
-    let builtStats: ChartData[];
+    let builtStats: LineChartData[];
     if (type === 'state') {
         builtStats = buildStats(data, 'states')
     } else {
@@ -9,7 +9,7 @@ export const createChartData = (data: any[], type: string) => {
 }
 
 const buildStats = (data: any[], type: string) => {
-    let stats: ChartData[] = [];
+    let stats: LineChartData[] = [];
 
     for(let i=0; i<data.length;i+=1) {
         const date = data[i].date
@@ -46,7 +46,7 @@ interface JSONData {
     deaths: number
 }
 
-export interface ChartData {
+export interface LineChartData {
     date: string,
     recovered: number,
     active: number,

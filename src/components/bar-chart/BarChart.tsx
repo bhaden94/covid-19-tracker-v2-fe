@@ -4,26 +4,23 @@ import {
     Chart,
     Series,
     ArgumentAxis,
-    Aggregation,
     CommonSeriesSettings,
     Legend,
     LoadingIndicator,
     Margin,
     Title,
-    Tooltip,
-    Point,
     Grid,
-    ZoomAndPan
+    Label,
+    Format
 } from 'devextreme-react/chart';
-import { queryCache, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { State } from '../../utilities/StateObj';
 import { Country } from '../../utilities/CountryObj';
-import { LineChartData, createChartData } from '../../utilities/lineChartUtils';
+import { BarChartData, createChartData } from '../../utilities/barChartUtils';
 import { Paper } from '@material-ui/core';
-import TooltipTemplate from './TooltipTemplate';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Skeleton from '@material-ui/lab/Skeleton/Skeleton';
 
@@ -32,38 +29,26 @@ interface RouterProps {
     country: string
 }
 
-interface ILineChartProps extends RouteComponentProps<RouterProps> {
+interface IBarChartProps extends RouteComponentProps<RouterProps> {
     type: string,
-    single: boolean
 }
 
-const LineChart = ({ type, single, match, history }: ILineChartProps) => {
+const BarChart = ({ type, match, history }: IBarChartProps) => {
     const theme = useTheme();
     const [name, setName] = useState<string>('')
-    const [chartData, setChartData] = useState<LineChartData[]>([])
-
-    // for us and world stats
-    const { isLoading, isError, data } = useQuery(type, fetchData, {
-        enabled: !single,
-        initialData: () => {
-            return queryCache.getQueryData(type)
-        }
-    })
+    const [chartData, setChartData] = useState<BarChartData[]>([])
 
     // for specific state or country stats
-    const specificData = useQuery([type, name], fetchData, {
-        enabled: single && name,
+    const { isLoading, isError, data } = useQuery([type, name], fetchData, {
+        enabled: name,
     })
 
     useEffect(() => {
-        if (data && !single) {
-            const lines = createChartData(data, type)
-            lines && setChartData(lines)
-        } else if (specificData?.data) {
-            const lines = createChartData(specificData.data, type)
-            lines && setChartData(lines)
+        if (data) {
+            const bars = createChartData(data, type)
+            bars && setChartData(bars)
         }
-    }, [data, type, single, specificData])
+    }, [data, type])
 
     useEffect(() => {
         let query = ''
@@ -91,15 +76,15 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
         }
     }, [name, match, history])
 
-    if (isLoading || specificData.isLoading) {
+    if (isLoading) {
         return (
-            <Skeleton variant="rect" width='100%' animation="wave" style={{borderRadius: '5px'}}>
+            <Skeleton variant="rect" width='100%' animation="wave" style={{ borderRadius: '5px' }}>
                 <Chart />
             </Skeleton>
         )
     }
 
-    if (isError || specificData.isError) {
+    if (isError) {
         return <span>Error</span>
     }
 
@@ -111,14 +96,12 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                 <Title text="Data Over Time" font={{ color: theme.palette.text.secondary }} />
                 <LoadingIndicator enabled={true} />
                 <CommonSeriesSettings
-                    argumentField="date"
-                    type='line'
+                    argumentField="rate"
+                    type='bar'
                 >
-                    <Point visible={true} size='8' />
-                    <Aggregation
-                        enabled={true}
-                        method="max"
-                    />
+                    <Label visible={true}>
+                        <Format type="fixedPoint" precision={0} />
+                    </Label>
                 </CommonSeriesSettings>
                 <Margin bottom={20} right={15} left={15} />
                 <ArgumentAxis
@@ -134,21 +117,11 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
                     horizontalAlignment="center"
                     itemTextPosition="bottom"
                 />
-                <Tooltip
-                    enabled={true}
-                    border={{ color: theme.palette.background.paper }}
-                    cornerRadius='5'
-                    color={theme.palette.background.paper}
-                    contentRender={TooltipTemplate}
-                />
-                <ZoomAndPan argumentAxis="both" />
-                <Series valueField='recovered' name='Recovered' color={green[500]} />
-                <Series valueField='active' name='Active' color={amber[600]} />
-                <Series valueField='confirmed' name='Confirmed' color={deepOrange[400]} />
-                <Series valueField='deaths' name='Deaths' color={red[500]} />
+                <Series argumentField="rate" valueField='state_country' name={name} color={green[500]} />
+                <Series argumentField="rate" valueField='us_world' name='us_world' color={amber[500]} />
             </Chart>
         </Paper>
     );
 }
 
-export default withRouter(LineChart);
+export default withRouter(BarChart);
