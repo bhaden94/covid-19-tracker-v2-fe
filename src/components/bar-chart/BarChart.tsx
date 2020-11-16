@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { deepOrange, green, red, amber } from '@material-ui/core/colors';
+import { blue, deepPurple, red } from '@material-ui/core/colors';
 import {
     Chart,
     Series,
@@ -8,9 +8,8 @@ import {
     LoadingIndicator,
     Margin,
     Title,
-    Label,
-    Format,
-    Size,
+    Tooltip,
+    ValueAxis,
 } from 'devextreme-react/chart';
 import { useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
@@ -35,9 +34,22 @@ interface IBarChartProps extends RouteComponentProps<RouterProps> {
 
 const useStyles = makeStyles(() => ({
     paper: {
+        // setting this to 100% creates a problem with the Bar chart rendering smooshed
+        // this could be a bug within the devextreme bar chart or somehwere in my code
+        // that is just messing it up
+        // for now having this be a fixed pixel height fixes the problem
+        height: '538px'
+    },
+    height100: {
         height: '100%'
     }
 }));
+
+const breakStyle = {
+    line: 'straight',
+    width: 1,
+    color: red[500]
+}
 
 const BarChart = ({ type, match, history }: IBarChartProps) => {
     const theme = useTheme();
@@ -95,32 +107,33 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
         return <span>Error</span>
     }
 
-    // currently getting wierd problems with rendering chart and it not being that right size
-    // possibly submit a bug ticket here if I can't figure it out
-    // https://github.com/DevExpress/devextreme-react/issues/new/choose
     return (
         <Paper className={classes.paper}>
             <Chart
                 id="chart"
-                className={classes.paper}
+                className={classes.height100}
                 dataSource={chartData}
             >
-                <Title text="Incident Rate Comparison" font={{ color: theme.palette.text.secondary }} />
+                <Title text='Incident/Mortality Rate Comparisons' font={{ color: theme.palette.text.secondary }} />
                 <LoadingIndicator enabled={true} />
                 <CommonSeriesSettings
                     argumentField="rate"
                     type="bar"
                     hoverMode="allArgumentPoints"
                     selectionMode="allArgumentPoints"
-                >
-                    <Label visible={true}>
-                        <Format type="fixedPoint" precision={0} />
-                    </Label>
-                </CommonSeriesSettings>
+                />
+                <Tooltip 
+                    enabled={true} 
+                    border={{ color: theme.palette.background.paper }}
+                    cornerRadius='5'
+                    color={theme.palette.background.paper}
+                    font={{color: theme.palette.text.secondary}}
+                />
                 <Margin right={15} left={15} />
-                <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
-                <Series valueField='state_country' name={name} color={green[500]} />
-                <Series valueField='us_world' name='us_world' color={amber[500]} />
+                <Legend verticalAlignment="bottom" horizontalAlignment="center" />
+                <ValueAxis breakStyle={breakStyle} autoBreaksEnabled={true} maxAutoBreakCount={2} />
+                <Series valueField='state_country' name={name} color={blue[600]} />
+                <Series valueField='us_world' name='us_world' color={deepPurple[300]} />
             </Chart>
         </Paper>
     );
