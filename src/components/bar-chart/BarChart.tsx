@@ -55,6 +55,7 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
     const theme = useTheme();
     const classes = useStyles();
     const [name, setName] = useState<string>('')
+    const [areaName, setAreaName] = useState<string>('United States')
     const [chartData, setChartData] = useState<BarChartData[]>([])
 
     // for us and world stats
@@ -84,6 +85,7 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
         if (match.params.state) {
             if (State.hasOwnProperty(query)) {
                 setName(State[query])
+                setAreaName('United States')
             } else {
                 // trying to get invalid state
                 history.push('/united_states')
@@ -91,6 +93,7 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
         } else if (match.params.country) {
             if (Country.hasOwnProperty(query)) {
                 setName(Country[query])
+                setAreaName('World')
             } else {
                 // trying to get invalid country
                 history.push('/world')
@@ -136,7 +139,7 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
                 <Legend verticalAlignment="bottom" horizontalAlignment="center" />
                 <ValueAxis breakStyle={breakStyle} autoBreaksEnabled={true} maxAutoBreakCount={2} />
                 <Series valueField='state_country' name={name} color={blue[600]} />
-                <Series valueField='us_world' name='us_world' color={deepPurple[300]} />
+                <Series valueField='us_world' name={areaName} color={deepPurple[300]} />
             </Chart>
         </Paper>
     );

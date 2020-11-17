@@ -109,6 +109,7 @@ const Table = ({ type, location }: ITableProps) => {
 
         <MaterialTable
             columns={columns}
+            style={{minHeight: '100%'}}
             data={Object.keys(chosenObj).map((e: any) => {
                 return {
                     name: chosenObj[e],
