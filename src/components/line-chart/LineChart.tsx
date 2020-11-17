@@ -21,7 +21,7 @@ import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { State } from '../../utilities/StateObj';
 import { Country } from '../../utilities/CountryObj';
-import { ChartData, createChartData } from '../../utilities/chartUtils';
+import { LineChartData, createChartData } from '../../utilities/lineChartUtils';
 import { Paper } from '@material-ui/core';
 import TooltipTemplate from './TooltipTemplate';
 import useTheme from '@material-ui/core/styles/useTheme';
@@ -40,7 +40,7 @@ interface ILineChartProps extends RouteComponentProps<RouterProps> {
 const LineChart = ({ type, single, match, history }: ILineChartProps) => {
     const theme = useTheme();
     const [name, setName] = useState<string>('')
-    const [chartData, setChartData] = useState<ChartData[]>([])
+    const [chartData, setChartData] = useState<LineChartData[]>([])
 
     // for us and world stats
     const { isLoading, isError, data } = useQuery(type, fetchData, {
