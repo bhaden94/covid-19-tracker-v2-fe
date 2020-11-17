@@ -11,7 +11,7 @@ import {
     Tooltip,
     ValueAxis,
 } from 'devextreme-react/chart';
-import { useQuery } from 'react-query';
+import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
@@ -57,17 +57,20 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
     const [name, setName] = useState<string>('')
     const [chartData, setChartData] = useState<BarChartData[]>([])
 
-    // for specific state or country stats
-    const { isLoading, isError, data } = useQuery([type, name], fetchData, {
+    // for us and world stats
+    const { isLoading, isError, data } = useQuery(type, fetchData, {
         enabled: name,
+        initialData: () => {
+            return queryCache.getQueryData(type)
+        }
     })
 
     useEffect(() => {
         if (data) {
-            const bars = createChartData(data, type)
+            const bars = createChartData(data, type, name)
             bars && setChartData(bars)
         }
-    }, [data, type])
+    }, [data, type, name])
 
     useEffect(() => {
         let query = ''
