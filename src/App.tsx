@@ -72,7 +72,7 @@ function App(props: { width: Breakpoint }) {
           </Grid>
         </div>
       </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={false} position='top-right' />
     </ThemeProvider>
   );
 }

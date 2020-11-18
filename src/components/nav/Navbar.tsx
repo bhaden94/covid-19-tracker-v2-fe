@@ -15,6 +15,7 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { makeStyles } from '@material-ui/core/styles';
 import ThemeSwitcher from '../theme-switcher/ThemeSwitcher';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 
 const drawerWidth = 240
 
@@ -103,6 +104,7 @@ const Navbar = ({ location, history }: RouteComponentProps) => {
                         <Typography color='textSecondary' align='center'>Global</Typography>
                     </ListItem>
                 </List>
+                <Footer />
             </SwipeableDrawer>
         </div>
     );
