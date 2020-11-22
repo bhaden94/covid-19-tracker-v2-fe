@@ -2,6 +2,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import { Theme, makeStyles } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link/Link';
+import { blue, deepPurple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -16,7 +18,20 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   headerSize: {
-      fontSize: '2rem'
+    fontSize: '2rem'
+  },
+  links: {
+    textDecoration: 'none',
+    color: blue[600],
+    '&:visited': {
+      color: theme.palette.type === 'light' ? deepPurple[500] : deepPurple[200]
+    },
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  },
+  paragraphs: {
+    lineHeight: 1.6
   }
 }));
 
@@ -35,7 +50,26 @@ const SiteInfo: React.FC = () => {
           >
             Sourcing
           </Typography>
-          <Typography color='textSecondary' gutterBottom>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Suspendisse interdum consectetur libero id faucibus nisl tincidunt eget nullam. Suspendisse sed nisi lacus sed. Gravida rutrum quisque non tellus orci ac. Et sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque. Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque</Typography>
+          <Typography className={classes.paragraphs} color='textSecondary' gutterBottom>
+            This site uses the information provided in the&nbsp;
+            <Link
+              className={classes.links}
+              href='https://github.com/CSSEGISandData/COVID-19'
+              target='_blank' rel="noopener noreferrer"
+            >
+              Github repository
+            </Link>
+            &nbsp;operated by&nbsp;
+            <Link
+              className={classes.links}
+              href='https://systems.jhu.edu/'
+              target='_blank' rel="noopener noreferrer"
+            >
+              Johns Hopkins University Center for Systems Science and Engineering (JHU CSSE)
+            </Link>
+            .
+
+          </Typography>
         </Grid>
         <Grid item>
           <Typography
@@ -46,20 +80,37 @@ const SiteInfo: React.FC = () => {
           >
             Data
           </Typography>
-          <Typography color='textSecondary' gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-            magna aliqua. Suspendisse interdum consectetur libero id faucibus nisl tincidunt eget nullam. Suspendisse sed
-            nisi lacus sed. Gravida rutrum quisque non tellus orci ac. Et sollicitudin ac orci phasellus egestas tellus
-            rutrum tellus pellentesque. Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
-            Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Cursus eget nunc scelerisque viverra.
-            Eros in cursus turpis massa tincidunt dui ut ornare lectus. Sed libero enim sed faucibus turpis in. Sem
-            viverra aliquet eget sit amet tellus. Ac tincidunt vitae semper quis. Felis eget nunc lobortis mattis aliquam
-            faucibus purus in massa. Sed sed risus pretium quam vulputate dignissim suspendisse in.
-            Cursus metus aliquam eleifend mi in. Fringilla ut morbi tincidunt augue interdum velit euismod in. Bibendum at
-            varius vel pharetra vel turpis nunc. Nunc sed augue lacus viverra vitae congue. Urna id volutpat lacus laoreet non
-            curabitur gravida arcu. Egestas sed tempus urna et pharetra. Quisque egestas diam in arcu cursus. Enim facilisis
-            gravida neque convallis a cras semper auctor. Sagittis vitae et leo duis ut. Velit aliquet sagittis id consectetur
-            purus ut faucibus pulvinar elementum.
+          <Typography className={classes.paragraphs} color='textSecondary' gutterBottom>
+            There are some points to note about the data here and the way it is displayed on the dashboard.
+            <ul>
+              <li>
+                Some states and countries do not report recovered data (e.g. California). You may see this displayed as a '0'
+                under the recovered section.
+              </li>
+              <li>
+                For more information regarding this data like: update frequency, caclulations,
+                and a detailed list of data modifications go to the&nbsp;
+              <Link
+                  className={classes.links}
+                  href='https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data#table-of-contents'
+                  target='_blank' rel="noopener noreferrer"
+                >
+                  JHU CSSE Github repositories table of contents
+              </Link>
+              .
+              </li>
+
+              <li>
+                The bar graph under specific states or countries has scale breaks so that the incident rate
+                and mortality rates can be displayed together. This does not effect the validity or
+                reliability of the graphs as they still display the proper height differences between bars.
+                <ul>
+                  <li>
+                    If you would like to see the graphs independently and without scale breaks then zoom into one side.
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </Typography>
         </Grid>
       </Grid>
