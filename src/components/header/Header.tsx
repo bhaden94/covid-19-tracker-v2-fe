@@ -1,19 +1,35 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
     header: {
-        fontSize: '3rem',
+        [theme.breakpoints.up('sm')]: {
+            fontSize: '3rem'
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '2.5rem'
+        },
         width: '100%',
         flexGrow: 1,
         align: 'center',
         padding: '0 25px'
-    }
+    },
+
 }));
 
-const Header = () => {
+const Header = ({ location }: RouteComponentProps) => {
     const classes = useStyles();
+    const [headerText, setHeaderText] = useState<string>('Covid-19 Tracker')
+
+    React.useEffect(() => {
+        location.pathname === '/site_info' ?
+            setHeaderText('Site Information') :
+            setHeaderText('Covid-19 Tracker')
+    }, [location])
 
     return (
         <Typography
@@ -22,9 +38,9 @@ const Header = () => {
             align='center'
             className={classes.header}
         >
-            Covid-19 Tracker
+            {headerText}
         </Typography>
     );
 }
 
-export default Header;
+export default withRouter(Header);

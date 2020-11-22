@@ -10,6 +10,7 @@ import {
     Title,
     Tooltip,
     ValueAxis,
+    ZoomAndPan,
 } from 'devextreme-react/chart';
 import { queryCache, useQuery } from 'react-query';
 import { fetchData } from '../../queries/fetchData';
@@ -136,6 +137,7 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
                     font={{color: theme.palette.text.secondary}}
                 />
                 <Margin right={15} left={15} />
+                <ZoomAndPan argumentAxis="both" />
                 <Legend verticalAlignment="bottom" horizontalAlignment="center" />
                 <ValueAxis breakStyle={breakStyle} autoBreaksEnabled={true} maxAutoBreakCount={2} />
                 <Series valueField='state_country' name={name} color={blue[600]} />
