@@ -1,6 +1,9 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 
 const useStyles = makeStyles(() => ({
     header: {
@@ -12,8 +15,15 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Header = () => {
+const Header = ({ location }: RouteComponentProps) => {
     const classes = useStyles();
+    const [headerText, setHeaderText] = useState<string>('Covid-19 Tracker')
+
+    React.useEffect(() => {
+        location.pathname === '/site_info' ?
+            setHeaderText('Site Information') :
+            setHeaderText('Covid-19 Tracker')
+    }, [location])
 
     return (
         <Typography
@@ -22,9 +32,9 @@ const Header = () => {
             align='center'
             className={classes.header}
         >
-            Covid-19 Tracker
+            {headerText}
         </Typography>
     );
 }
 
-export default Header;
+export default withRouter(Header);
