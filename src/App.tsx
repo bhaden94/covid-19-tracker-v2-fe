@@ -16,6 +16,7 @@ import LineChartRoutes from './components/line-chart/LineChartRoutes';
 import Grid from '@material-ui/core/Grid';
 import 'devextreme/dist/css/dx.common.css';
 import RateRoutes from './components/rates/RateRoutes';
+import SiteInfo from './components/site-info/SiteInfo';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
@@ -39,6 +40,7 @@ function App(props: { width: Breakpoint }) {
       <CssBaseline />
       <BrowserRouter>
         <Navbar />
+        
         <div style={{ padding: '20px' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -68,9 +70,10 @@ function App(props: { width: Breakpoint }) {
                 <Route path="/" component={LineChartRoutes} />
               </Grid>
             }
-
           </Grid>
         </div>
+
+        <SiteInfo />
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} position='top-right' />
     </ThemeProvider>
