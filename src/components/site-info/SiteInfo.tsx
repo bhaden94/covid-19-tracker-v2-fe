@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       padding: '20px 10%'
+    },
+    [theme.breakpoints.down('xs')]: {
+      padding: '20px 5%'
     }
   },
   headerSize: {
