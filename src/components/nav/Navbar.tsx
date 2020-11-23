@@ -12,14 +12,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import ThemeSwitcher from '../theme-switcher/ThemeSwitcher';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 const drawerWidth = 240
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
     bar: {
         padding: '25px 0 10px'
     },
@@ -102,6 +102,9 @@ const Navbar = ({ location, history }: RouteComponentProps) => {
                     </ListItem>
                     <ListItem button component={Link} to="/world">
                         <Typography color='textSecondary' align='center'>Global</Typography>
+                    </ListItem>
+                    <ListItem button component={Link} to="/news">
+                        <Typography color='textSecondary' align='center'>News</Typography>
                     </ListItem>
                 </List>
                 <Footer />

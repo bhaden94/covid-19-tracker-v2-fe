@@ -12,7 +12,7 @@ import { averageRate } from '../../utilities/rateUtils';
 
 const useStyles = makeStyles({
     title: {
-        fontSize: '1.5rem'
+        fontSize: '1.5rem !important'
     },
 })
 

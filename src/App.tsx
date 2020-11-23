@@ -17,6 +17,7 @@ import Grid from '@material-ui/core/Grid';
 import 'devextreme/dist/css/dx.common.css';
 import RateRoutes from './components/rates/RateRoutes';
 import SiteInfo from './components/site-info/SiteInfo';
+import News from './components/news/News';
 
 const prefetchStates = async () => {
   await queryCache.prefetchQuery('state', () => fetchData('state'))
@@ -73,6 +74,7 @@ function App(props: { width: Breakpoint }) {
             </Grid>
           </div>
         </Route>
+        <Route exact path="/news" component={News} />
         <Route exact path="/site_info" component={SiteInfo} />
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} position='top-right' />

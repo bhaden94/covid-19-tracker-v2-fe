@@ -48,7 +48,7 @@ const Footer = () => {
                 <Grid className={classes.center} item xs={12}>
                     <Typography className={classes.links} component={Link} to="/site_info">Site information</Typography>
                 </Grid>
-                <Grid container xs={12} spacing={1}>
+                <Grid container item xs={12} spacing={1}>
                     <Grid className={classes.center} item xs={6}>
                         <a href='https://github.com/bhaden94' target='_blank' rel="noopener noreferrer">
                             <GitHubIcon className={classes.icons} htmlColor={theme.palette.text.secondary} />
@@ -60,7 +60,7 @@ const Footer = () => {
                         </a>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} alignItems='center'>
+                <Grid item xs={12}>
                     <Typography align='center' color='textSecondary' style={{ fontSize: 10 }}>
                         &#169; Copyright 2020 Brady Haden
                     </Typography>
