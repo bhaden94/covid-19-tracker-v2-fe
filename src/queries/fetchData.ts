@@ -7,13 +7,23 @@ export const fetchData = async (type: string, name?: string) => {
 }
 
 const fetchSpecific = async (type: string, name: string) => {
-    const data = await fetch(`/api/${type}?name=${name}`)
+    // check if we are production build or not
+    const url = process.env.NODE_ENV === 'production' ? 
+        `${process.env.REACT_APP_BACKEND}/api/${type}?name=${name}` :
+        `/api/${type}?name=${name}`
+
+    const data = await fetch(url)
     const json = await data.json()
     return json
 }
 
 const fetchAllData = async (type: string) => {
-    const data = await fetch(`/api/${type}/all`)
+    // check if we are production build or not
+    const url = process.env.NODE_ENV === 'production' ? 
+        `${process.env.REACT_APP_BACKEND}/api/${type}/all` :
+        `/api/${type}/all`
+
+    const data = await fetch(url)
     const json = await data.json()
     return json
 }
