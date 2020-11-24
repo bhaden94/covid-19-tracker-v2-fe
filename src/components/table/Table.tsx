@@ -60,17 +60,20 @@ const Table = ({ type, location }: ITableProps) => {
                     >
                         {rowData.name}
                     </Typography>)
+            },
+            headerStyle: {
+                color: theme.palette.text.secondary
             }
         },
         {
             title: '1-Day change',
             field: 'day1Change',
-            type: 'numeric'
+            type: 'numeric',
         },
         {
             title: '7-Day change',
             field: 'day7Change',
-            type: 'numeric'
+            type: 'numeric',
         },
     ]
 
@@ -82,6 +85,15 @@ const Table = ({ type, location }: ITableProps) => {
         exportAllData: true,
         exportButton: true,
         padding: 'dense',
+        headerStyle: {
+            color: theme.palette.text.secondary
+        },
+        rowStyle: {
+            color: theme.palette.text.secondary
+        },
+        style: {
+            color: 'red'
+        }
     }
 
     useEffect(() => {
@@ -109,7 +121,7 @@ const Table = ({ type, location }: ITableProps) => {
 
         <MaterialTable
             columns={columns}
-            style={{minHeight: '100%'}}
+            style={{ minHeight: '100%' }}
             data={Object.keys(chosenObj).map((e: any) => {
                 return {
                     name: chosenObj[e],

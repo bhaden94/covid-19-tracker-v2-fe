@@ -10,7 +10,7 @@ const useStyles = makeStyles({
         paddingTop: '10px',
     },
     font: {
-        fontSize: '1.5rem'
+        fontSize: '1.5rem !important'
     },
 });
 

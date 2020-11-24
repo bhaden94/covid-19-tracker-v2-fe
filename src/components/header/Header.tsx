@@ -6,12 +6,12 @@ import { withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 
 const useStyles = makeStyles((theme: Theme) => ({
-    header: {
+    headerStyle: {
         [theme.breakpoints.up('sm')]: {
-            fontSize: '3rem'
+            fontSize: '3rem !important'
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: '2.5rem'
+            fontSize: '2.5rem !important'
         },
         width: '100%',
         flexGrow: 1,
@@ -26,17 +26,22 @@ const Header = ({ location }: RouteComponentProps) => {
     const [headerText, setHeaderText] = useState<string>('Covid-19 Tracker')
 
     React.useEffect(() => {
-        location.pathname === '/site_info' ?
-            setHeaderText('Site Information') :
-            setHeaderText('Covid-19 Tracker')
+        const loc = location.pathname
+        if(loc === '/site_info') {
+            setHeaderText('Site Information')
+        } else if (loc === '/news') {
+            setHeaderText('Covid-19 News')
+        } else {
+            setHeaderText('Covid-19 Data')
+        }
     }, [location])
 
     return (
         <Typography
+            className={classes.headerStyle}
             variant="h1"
-            color='primary'
+            color='textPrimary'
             align='center'
-            className={classes.header}
         >
             {headerText}
         </Typography>

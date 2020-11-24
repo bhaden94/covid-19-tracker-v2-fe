@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   },
   headerSize: {
-    fontSize: '2rem'
+    fontSize: '2rem !important'
   },
   links: {
     textDecoration: 'none',

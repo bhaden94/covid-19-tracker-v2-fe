@@ -21,22 +21,22 @@ const useStyles = makeStyles({
         paddingTop: '10px',
     },
     title: {
-        fontSize: '2.5rem'
+        fontSize: '2.5rem !important'
     },
     recovered: {
-        fontSize: '1.5rem',
+        fontSize: '1.5rem !important',
         color: green[500]
     },
     active: {
-        fontSize: '1.5rem',
+        fontSize: '1.5rem !important',
         color: amber[600]
     },
     confirmed: {
-        fontSize: '1.5rem',
+        fontSize: '1.5rem !important',
         color: deepOrange[400]
     },
     deaths: {
-        fontSize: '1.5rem',
+        fontSize: '1.5rem !important',
         color: red[500]
     }
 });
