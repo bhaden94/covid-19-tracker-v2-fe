@@ -18,8 +18,8 @@ COPY --from=builder /app/build/ /usr/share/nginx/html
 # Copy the default nginx.conf provided by tiangolo/node-frontend
 COPY --from=builder /nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE $PORT
-ENTRYPOINT ["nginx","-g","daemon off;"]
+# EXPOSE $PORT
+# ENTRYPOINT ["nginx","-g","daemon off;"]
 
 # build docker and run
 # docker build -t covid-fe .
