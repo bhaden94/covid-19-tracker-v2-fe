@@ -5,7 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Code Inspector to check code quality
     steps:
-      - name: Check code meets quality standards
       id: code-inspector
       uses: codeinspectorio/github-action@master
       with:
