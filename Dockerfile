@@ -9,8 +9,8 @@ COPY ./ /app/
 #COPY nginx.conf /app/
 
 # for deployment change to actual BE URL
-ARG REACT_APP_BACKEND=http://localhost:8080
-# ARG REACT_APP_BACKEND='real BE URL'
+# ARG REACT_APP_BACKEND=http://localhost:8080
+ARG REACT_APP_BACKEND=https://covid-tracker-v2-be.herokuapp.com
 
 # set the environment variable to be BE URL and build to production
 RUN REACT_APP_BACKEND=$REACT_APP_BACKEND npm run build
