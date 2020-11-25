@@ -68,11 +68,11 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To install the React frontend follow these steps below. It is recommended to install and run the backend first. Steps on how to do that are found int the [backend repository](ttps://github.com/bhaden94/Covid19-tracker-V2-API)
+To install the React frontend follow these steps below. It is recommended to install and run the backend first. Steps on how to do that are found in the [backend repository](https://github.com/bhaden94/Covid19-tracker-V2-API)
 
 ### Prerequisites
 
-node and npm installed. How to do this can be found [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+Node and npm must be installed. How to do this can be found [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ### Installation
 
@@ -133,8 +133,6 @@ Brady Haden - [LinkedIn](https://www.linkedin.com/in/brady-s-haden/)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [React Vertical Timeline](https://stephane-monnot.github.io/react-vertical-timeline/#/)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 * [Img Shields](https://shields.io)
 * [Code Inspector Github Action](https://github.com/marketplace/actions/code-inspector-github-action)
 
