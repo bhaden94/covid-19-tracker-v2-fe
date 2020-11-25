@@ -1,46 +1,166 @@
-## The is the React frontend for my Covid-19 tracker version 2. It is still in development and this read me has not been updated yet.
+# Covid-19-Tracker-V2-Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+<!-- [![Contributors][contributors-shield]][contributors-url] -->
+![code-quality-shield]
+![code-grade]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://covid-tracker-v2.herokuapp.com/">
+    <img src="https://images.newscientist.com/wp-content/uploads/2020/02/11165812/c0481846-wuhan_novel_coronavirus_illustration-spl.jpg" alt="Logo" width="150" height="100">
+  </a>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  <h3 align="center">Covid Tracker V2 Frontend</h3>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+  <p align="center">
+    Visualization dashboard to see key data related to Covid-19.
+    <br />
+    <a href="https://covid-tracker-v2.herokuapp.com/">View On Heroku</a>
+    ·
+    <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Request Feature</a>
+  </p>
+</p>
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+<!-- ABOUT THE PROJECT -->
+## Built With
+* [Create React App](https://create-react-app.dev/)
+* [Material-UI](https://material-ui.com/)
+* [DevExtreme React Charts](https://js.devexpress.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<!-- GETTING STARTED -->
+## Getting Started
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To install the React frontend follow these steps below. It is recommended to install and run the backend first. Steps on how to do that are found int the [backend repository](ttps://github.com/bhaden94/Covid19-tracker-V2-API)
 
-## Learn More
+### Prerequisites
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+node and npm installed. How to do this can be found [here](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Installation
+
+1. Clone the repo
+```sh
+git clone https://github.com/bhaden94/covid-19-tracker-v2-fe.git
+```
+2. Install NPM packages
+```sh
+npm install
+```
+3. Start the react app
+> **_NOTE:_**  The backend should be installed and running first or else the front end will not be able to proxy any requests. See documentation [here](https://github.com/bhaden94/Covid19-tracker-V2-API) to get the backend running.
+```sh
+npm start
+```
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+This app was built to give you a visual dashboard for the key data as it relates to the Covid-19 virus.
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/bhaden94/covid-19-tracker-v2-fe/issues) for a list of proposed features (and known issues).
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be; learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Brady Haden - [LinkedIn](https://www.linkedin.com/in/brady-s-haden/)
+
+
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [React Vertical Timeline](https://stephane-monnot.github.io/react-vertical-timeline/#/)
+* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Img Shields](https://shields.io)
+* [Code Inspector Github Action](https://github.com/marketplace/actions/code-inspector-github-action)
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+<!-- [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors -->
+[forks-shield]: https://img.shields.io/github/forks/bhaden94/covid-19-tracker-v2-fe.svg
+[forks-url]: https://github.com/bhaden94/covid-19-tracker-v2-fe/network/members
+
+[stars-shield]: https://img.shields.io/github/stars/bhaden94/covid-19-tracker-v2-fe.svg
+[stars-url]: https://github.com/bhaden94/covid-19-tracker-v2-fe/stargazers
+
+[issues-shield]: https://img.shields.io/github/issues/bhaden94/covid-19-tracker-v2-fe.svg
+[issues-url]: https://github.com/bhaden94/covid-19-tracker-v2-fe/issues
+
+[license-shield]: https://img.shields.io/github/license/bhaden94/covid-19-tracker-v2-fe.svg
+[license-url]: https://github.com/bhaden94/covid-19-tracker-v2-fe/blob/master/LICENSE.txt
+
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/brady-s-haden/
+[product-screenshot]: images/screenshot.png
+
+[code-quality-shield]: https://www.code-inspector.com/project/16565/score/svg
+[code-grade]: https://www.code-inspector.com/project/16565/status/svg
