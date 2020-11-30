@@ -33,7 +33,7 @@
     <br />
     <a href="https://covid-tracker-v2.herokuapp.com/">View On Heroku</a>
     ·
-    <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Report Bug</a>
+    <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Report Bug/Request Feature</a>
     ·
     <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Request Feature</a>
   </p>
