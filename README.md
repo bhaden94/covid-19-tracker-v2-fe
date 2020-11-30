@@ -35,7 +35,7 @@
     ·
     <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Report Bug/Request Feature</a>
     ·
-    <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Request Feature</a>
+    <a href="https://frontend.code-inspector.com/public/project/16565/covid-19-tracker-v2-fe/dashboard">Code Inspector Dashboard</a>
   </p>
 </p>
 
@@ -62,7 +62,6 @@
 * [Create React App](https://create-react-app.dev/)
 * [Material-UI](https://material-ui.com/)
 * [DevExtreme React Charts](https://js.devexpress.com/)
-* [Code Inspector Dashboard](https://frontend.code-inspector.com/public/project/16565/covid-19-tracker-v2-fe/dashboard)
 
 
 
