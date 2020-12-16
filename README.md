@@ -31,7 +31,7 @@
   <p align="center">
     Visualization dashboard to see key data related to Covid-19.
     <br />
-    <a href="https://covid-tracker-v2.herokuapp.com/">View On Heroku</a>
+    <a href="https://covid-19-tracker-v2-fe.vercel.app/">View Live Application</a>
     ·
     <a href="https://github.com/bhaden94/covid-19-tracker-v2-fe/issues">Report Bug/Request Feature</a>
     ·
