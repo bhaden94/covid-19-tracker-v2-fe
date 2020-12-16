@@ -22,7 +22,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://covid-tracker-v2.herokuapp.com/">
+  <a href="https://covid-19-tracker-v2-fe.vercel.app/">
     <img src="https://images.newscientist.com/wp-content/uploads/2020/02/11165812/c0481846-wuhan_novel_coronavirus_illustration-spl.jpg" alt="Logo" width="150" height="100">
   </a>
 
