@@ -5,9 +5,8 @@ import { withRouter } from "react-router-dom";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { deepOrange, green, red, amber } from "@material-ui/core/colors";
-import { queryCache, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { fetchTotals } from "../../queries/fetchTotals";
-import { createStats } from "../../utilities/statUtilities";
 import Stat from "./Stat";
 import { State } from "../../utilities/StateObj";
 import { Country } from "../../utilities/CountryObj";
@@ -69,18 +68,21 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 	});
 
 	// for us and world stats
-	const { isLoading, isError, data } = useQuery(['totals', type], fetchTotals, {
-		enabled: !single,
-	});
+	const { isLoading, isError, data } = useQuery(
+		["totals", type],
+		fetchTotals,
+		{
+			enabled: !single,
+		}
+	);
 
 	// for specific state or country stats
-	const specificData = useQuery(['totals', type, name], fetchTotals, {
+	const specificData = useQuery(["totals", type, name], fetchTotals, {
 		enabled: single && name,
 	});
 
 	useEffect(() => {
 		if (data && !single) {
-            // const totals = createStats(data, type);
 			setTotals({
 				confirmed: data.confirmed,
 				active: data.active,
@@ -88,14 +90,13 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 				deaths: data.deaths,
 			});
 		} else if (specificData?.data) {
-			// const totals = createStats(specificData.data, type);
 			setTotals({
 				confirmed: specificData.data.confirmed,
 				active: specificData.data.active,
 				recovered: specificData.data.recovered,
 				deaths: specificData.data.deaths,
 			});
-        }
+		}
 	}, [data, type, title, single, specificData]);
 
 	useEffect(() => {
@@ -145,7 +146,7 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 
 	if (isError || specificData.isError) {
 		return <span>Error</span>;
-    }
+	}
 
 	return (
 		<Paper className={classes.container}>
