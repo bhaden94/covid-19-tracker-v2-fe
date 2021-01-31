@@ -25,7 +25,7 @@ export default function Stat({ name, stat, properties }: IStatProps) {
     const [num, setNum] = useState<any>('')
 
     useEffect(() => {
-        setNum(abbreviateNumber(stat, 1))
+        stat && setNum(abbreviateNumber(stat, 1))
     }, [stat])
 
     return (
@@ -33,7 +33,7 @@ export default function Stat({ name, stat, properties }: IStatProps) {
             <Typography color='textSecondary' className={classes.font} variant='h2' align='center'>
                 <u>{name}</u>
             </Typography><br />
-            <Tooltip title={stat.toLocaleString()} enterTouchDelay={50} arrow>
+            <Tooltip title={stat?.toLocaleString()} enterTouchDelay={50} arrow>
                 <Typography className={properties} gutterBottom variant='h2' align='center'>
                     {num}
                 </Typography>
