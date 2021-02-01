@@ -13,7 +13,7 @@ const fetchSpecificTotals = async (type: string, name: string) => {
 			: `/api/${type}/totals?name=${name}`;
 
 	const data = await fetch(url);
-    const json = await data.json();
+	const json = await data.json();
 	return json;
 };
 
@@ -24,6 +24,6 @@ const fetchAllTotals = async (type: string) => {
 			: `/api/${type}/all/totals`;
 
 	const data = await fetch(url);
-    const json = await data.json();
+	const json = await data.json();
 	return json;
 };
