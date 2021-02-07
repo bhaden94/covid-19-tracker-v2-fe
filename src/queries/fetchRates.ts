@@ -1,12 +1,12 @@
 export const fetchRates = async (rate: string, type: string, name?: string) => {
 	if (name) {
-		return await fetchSpecificTotals(rate, type, name);
+		return await fetchSpecificRate(rate, type, name);
 	} else {
-		return await fetchAllTotals(rate, type);
+		return await fetchAllRate(rate, type);
 	}
 };
 
-const fetchSpecificTotals = async (
+const fetchSpecificRate = async (
 	rate: string,
 	type: string,
 	name: string
@@ -21,7 +21,7 @@ const fetchSpecificTotals = async (
 	return json;
 };
 
-const fetchAllTotals = async (rate: string, type: string) => {
+const fetchAllRate = async (rate: string, type: string) => {
 	const url =
 		process.env.NODE_ENV === "production"
 			? `${process.env.REACT_APP_BACKEND}/api/${type}/rates/${rate}`
