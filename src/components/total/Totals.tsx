@@ -83,19 +83,9 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 
 	useEffect(() => {
 		if (data && !single) {
-			setTotals({
-				confirmed: data.confirmed,
-				active: data.active,
-				recovered: data.recovered,
-				deaths: data.deaths,
-			});
+			setTotals(data);
 		} else if (specificData?.data) {
-			setTotals({
-				confirmed: specificData.data.confirmed,
-				active: specificData.data.active,
-				recovered: specificData.data.recovered,
-				deaths: specificData.data.deaths,
-			});
+			setTotals(specificData.data);
 		}
 	}, [data, type, title, single, specificData]);
 

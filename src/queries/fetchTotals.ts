@@ -20,8 +20,8 @@ const fetchSpecificTotals = async (type: string, name: string) => {
 const fetchAllTotals = async (type: string) => {
 	const url =
 		process.env.NODE_ENV === "production"
-			? `${process.env.REACT_APP_BACKEND}/api/${type}/all/totals`
-			: `/api/${type}/all/totals`;
+			? `${process.env.REACT_APP_BACKEND}/api/${type}/totals`
+			: `/api/${type}/totals`;
 
 	const data = await fetch(url);
 	const json = await data.json();
