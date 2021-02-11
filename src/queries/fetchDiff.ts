@@ -1,4 +1,4 @@
-export const fetchDiff = async (type: string, diff: number) => {
+export const fetchDiff = async (id: string, type: string, diff: number) => {
 	const url =
 		process.env.NODE_ENV === "production"
 			? `${process.env.REACT_APP_BACKEND}/api/${type}/days_difference?diff=${diff}`

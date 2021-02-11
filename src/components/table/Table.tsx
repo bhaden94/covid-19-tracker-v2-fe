@@ -12,6 +12,8 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import { useQuery } from "react-query";
 import { fetchDiff } from "../../queries/fetchDiff";
 import Skeleton from "@material-ui/lab/Skeleton/Skeleton";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme: Theme) => ({
 	links: {
@@ -39,7 +41,15 @@ interface ITableProps extends RouteComponentProps<RouterProps> {
 }
 
 const Table = ({ type, location }: ITableProps) => {
-	const { isLoading, isError, data } = useQuery([type, 7], fetchDiff);
+	const [days, setDays] = useState<number>(7);
+	const { isLoading, isError, data } = useQuery(
+		["differences", type, days],
+		fetchDiff
+	);
+
+	const handleChange = (event: any) => {
+		setDays(event.taget.value);
+	};
 
 	const theme: Theme = useTheme();
 	const classes = useStyles();
@@ -64,7 +74,21 @@ const Table = ({ type, location }: ITableProps) => {
 			},
 		},
 		{
-			title: "7-Day change",
+			title: (
+				<div>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={days}
+						onChange={handleChange}
+					>
+						<MenuItem value={1}>1</MenuItem>
+						<MenuItem value={7}>7</MenuItem>
+						<MenuItem value={14}>14</MenuItem>
+					</Select>
+					-Day change
+				</div>
+			),
 			field: "daysChange",
 			type: "numeric",
 		},
