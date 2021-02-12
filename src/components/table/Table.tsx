@@ -1,5 +1,5 @@
 import * as React from "react";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 import { RouteComponentProps } from "react-router";
 import { Link, withRouter } from "react-router-dom";
 import { Typography } from "@material-ui/core";
@@ -12,8 +12,7 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import { useQuery } from "react-query";
 import { fetchDiff } from "../../queries/fetchDiff";
 import Skeleton from "@material-ui/lab/Skeleton/Skeleton";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
+import CustomToolbar from "./CustomToolbar";
 
 const useStyles = makeStyles((theme: Theme) => ({
 	links: {
@@ -47,8 +46,8 @@ const Table = ({ type, location }: ITableProps) => {
 		fetchDiff
 	);
 
-	const handleChange = (event: any) => {
-		setDays(event.taget.value);
+	const changeDays = (event: any) => {
+		setDays(event.target.value);
 	};
 
 	const theme: Theme = useTheme();
@@ -74,21 +73,7 @@ const Table = ({ type, location }: ITableProps) => {
 			},
 		},
 		{
-			title: (
-				<div>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={days}
-						onChange={handleChange}
-					>
-						<MenuItem value={1}>1</MenuItem>
-						<MenuItem value={7}>7</MenuItem>
-						<MenuItem value={14}>14</MenuItem>
-					</Select>
-					-Day change
-				</div>
-			),
+			title: `${days}-Day Difference`,
 			field: "daysChange",
 			type: "numeric",
 		},
@@ -145,6 +130,14 @@ const Table = ({ type, location }: ITableProps) => {
 				};
 			})}
 			options={options}
+			components={{
+				Toolbar: (props) => (
+					<div>
+						<MTableToolbar {...props} />
+						<CustomToolbar days={days} changeDays={changeDays} />
+					</div>
+				),
+			}}
 		/>
 	);
 };
