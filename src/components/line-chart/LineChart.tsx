@@ -23,7 +23,8 @@ import { RouteComponentProps } from "react-router";
 import { withRouter } from "react-router-dom";
 import { State } from "../../utilities/StateObj";
 import { Country } from "../../utilities/CountryObj";
-import { Paper } from "@material-ui/core";
+import { Paper, Button } from "@material-ui/core";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import TooltipTemplate from "./TooltipTemplate";
 import useTheme from "@material-ui/core/styles/useTheme";
 import Skeleton from "@material-ui/lab/Skeleton/Skeleton";
@@ -47,10 +48,25 @@ interface ILineChartProps extends RouteComponentProps<RouterProps> {
 	single: boolean;
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+	parent: {
+		position: "relative",
+		height: "418px",
+	},
+	resetBtn: {
+		position: "absolute",
+		right: "10px",
+		top: "10px",
+		color: theme.palette.text.secondary,
+	},
+}));
+
 const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 	const theme = useTheme();
+	const classes = useStyles();
 	const [name, setName] = useState<string>("");
 	const [chartData, setChartData] = useState<LineChartData[]>([]);
+	const [zoom, setZoom] = useState<string>("in");
 
 	// for us and world stats
 	const { isLoading, isError, data } = useQuery(type, fetchLineChart, {
@@ -64,7 +80,13 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 		staleTime: 50000,
 	});
 
-	const resetZoom = () => {};
+	// kinda hacky way to reset zoom on chart
+	// set the id of the chart to be a string and just change that state
+	// whenever we want to reset the zomm of the chart.
+	// it causes the chart to re-render, thus reseting the zoom
+	const resetZoom = () => {
+		zoom === "in" ? setZoom("out") : setZoom("in");
+	};
 
 	useEffect(() => {
 		if (data && !single) {
@@ -121,20 +143,27 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 	}
 
 	return (
-		<Paper>
-			<Chart dataSource={chartData}>
+		<Paper className={classes.parent}>
+			<Button
+				className={classes.resetBtn}
+				onClick={resetZoom}
+				size="small"
+			>
+				Reset
+			</Button>
+			<Chart dataSource={chartData} id={zoom}>
 				<Title
 					text="Data Over Time"
 					font={{ color: theme.palette.text.secondary }}
 				/>
 				<LoadingIndicator enabled={true} />
 				<CommonSeriesSettings argumentField="date" type="line">
-					<Point visible={true} size="8" />
-					{/* <Aggregation enabled={true} method="max" /> */}
+					<Point visible={true} size="6" />
+					<Aggregation enabled={true} method="max" />
 				</CommonSeriesSettings>
 				<Margin bottom={20} right={15} left={15} />
 				<ArgumentAxis
-					aggregationInterval={{ weeks: 1 }}
+					aggregationInterval={{ days: 5 }}
 					valueMarginsEnabled={true}
 					argumentType="datetime"
 					discreteAxisDivisionMode="crossLabels"
@@ -166,11 +195,7 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 					contentRender={TooltipTemplate}
 				/>
 				<ZoomAndPan argumentAxis="both" dragToZoom={true} />
-				<Animation
-					easing="linear"
-					duration={500}
-					maxPointCountSupported={100}
-				/>
+				<Animation maxPointCountSupported={400} />
 				<Series
 					valueField="recovered"
 					name="Recovered"
@@ -184,7 +209,6 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 				/>
 				<Series valueField="deaths" name="Deaths" color={red[500]} />
 			</Chart>
-			<button onClick={resetZoom}>reset</button>
 		</Paper>
 	);
 };

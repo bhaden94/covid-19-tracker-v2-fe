@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
 		// this could be a bug within the devextreme bar chart or somehwere in my code
 		// that is just messing it up
 		// for now having this be a fixed pixel height fixes the problem
-		height: "538px",
+		height: "555px",
 	},
 	height100: {
 		height: "100%",
