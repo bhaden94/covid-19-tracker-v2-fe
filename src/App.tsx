@@ -1,40 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import ThemeProvider from "./themes";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import withWidth, { isWidthDown, isWidthUp } from "@material-ui/core/withWidth";
 import { Breakpoint } from "@material-ui/core/styles/createBreakpoints";
-import "./App.css";
 import useTheme from "@material-ui/core/styles/useTheme";
 import TotalsRoutes from "./components/total/TotalsRoutes";
 import Navbar from "./components/nav/Navbar";
 import { ReactQueryDevtools } from "react-query-devtools";
-import { queryCache } from "react-query";
-import { fetchData } from "./queries/fetchData";
 import TableBarChartRoutes from "./components/table/TableBarChartRoutes";
 import LineChartRoutes from "./components/line-chart/LineChartRoutes";
 import Grid from "@material-ui/core/Grid";
-import "devextreme/dist/css/dx.common.css";
 import RateRoutes from "./components/rates/RateRoutes";
 import SiteInfo from "./components/site-info/SiteInfo";
 import News from "./components/news/News";
-
-const prefetchStates = async () => {
-	await queryCache.prefetchQuery("state", () => fetchData("state"));
-};
-
-const prefetchCountries = async () => {
-	await queryCache.prefetchQuery("country", () => fetchData("country"));
-};
+import "./App.css";
+import "devextreme/dist/css/dx.common.css";
 
 function App(props: { width: Breakpoint }) {
 	const theme = useTheme();
 	const { width } = props;
-
-	useEffect(() => {
-		prefetchStates();
-		prefetchCountries();
-	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>
