@@ -4,7 +4,6 @@ import {
 	Chart,
 	Series,
 	ArgumentAxis,
-	Aggregation,
 	Animation,
 	CommonSeriesSettings,
 	Legend,
@@ -159,7 +158,7 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 				<LoadingIndicator enabled={true} />
 				<CommonSeriesSettings argumentField="date" type="line">
 					<Point visible={true} size="6" />
-					<Aggregation enabled={true} method="max" />
+					{/* <Aggregation enabled={true} method="max" /> */}
 				</CommonSeriesSettings>
 				<Margin bottom={20} right={15} left={15} />
 				<ArgumentAxis
