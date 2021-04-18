@@ -1,8 +1,4 @@
-export const fetchBarChart = async (
-	id: string,
-	type: string,
-	name: string
-) => {
+export const fetchBarChart = async (type: string, name: string) => {
 	const url =
 		process.env.NODE_ENV === "production"
 			? `${process.env.REACT_APP_BACKEND}/api/${type}/bar_chart?name=${name}`

@@ -40,14 +40,22 @@ const Rate = ({ history, match, rate, type, single }: IRateProps) => {
 	const [tooltipTitle, setTooltipTitle] = useState<string>("");
 
 	// for us and world stats
-	const { isLoading, isError, data } = useQuery([rate, type], fetchRates, {
-		enabled: !single,
-	});
+	const { isLoading, isError, data } = useQuery(
+		[rate, type],
+		() => fetchRates(rate, type),
+		{
+			enabled: !single,
+		}
+	);
 
 	// for specific state or country stats
-	const specificData = useQuery([rate, type, name], fetchRates, {
-		enabled: single && name,
-	});
+	const specificData = useQuery(
+		[rate, type, name],
+		() => fetchRates(rate, type, name),
+		{
+			enabled: single && !!name,
+		}
+	);
 
 	useEffect(() => {
 		if (data && !single) {
