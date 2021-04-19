@@ -70,16 +70,20 @@ const Totals = ({ history, match, title, type, single }: ITotalsProps) => {
 	// for us and world stats
 	const { isLoading, isError, data } = useQuery(
 		["totals", type],
-		fetchTotals,
+		() => fetchTotals(type),
 		{
 			enabled: !single,
 		}
 	);
 
 	// for specific state or country stats
-	const specificData = useQuery(["totals", type, name], fetchTotals, {
-		enabled: single && name,
-	});
+	const specificData = useQuery(
+		["totals", type, name],
+		() => fetchTotals(type, name),
+		{
+			enabled: single && !!name,
+		}
+	);
 
 	useEffect(() => {
 		if (data && !single) {

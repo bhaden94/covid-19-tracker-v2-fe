@@ -68,16 +68,24 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 	const [zoom, setZoom] = useState<string>("in");
 
 	// for us and world stats
-	const { isLoading, isError, data } = useQuery(type, fetchLineChart, {
-		enabled: !single,
-		staleTime: 50000,
-	});
+	const { isLoading, isError, data } = useQuery(
+		type,
+		() => fetchLineChart(type),
+		{
+			enabled: !single,
+			staleTime: 50000,
+		}
+	);
 
 	// for specific state or country stats
-	const specificData = useQuery([type, name], fetchLineChart, {
-		enabled: single && name,
-		staleTime: 50000,
-	});
+	const specificData = useQuery(
+		[type, name],
+		() => fetchLineChart(type, name),
+		{
+			enabled: single && !!name,
+			staleTime: 50000,
+		}
+	);
 
 	// kinda hacky way to reset zoom on chart
 	// set the id of the chart to be a string and just change that state

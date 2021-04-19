@@ -43,7 +43,7 @@ const Table = ({ type, location }: ITableProps) => {
 	const [days, setDays] = useState<number>(7);
 	const { isLoading, isError, data } = useQuery(
 		["differences", type, days],
-		fetchDiff
+		() => fetchDiff(type, days)
 	);
 
 	const changeDays = (event: any) => {

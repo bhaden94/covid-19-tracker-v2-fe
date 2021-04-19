@@ -1,4 +1,4 @@
-export const fetchTotals = async (id: string, type: string, name?: string) => {
+export const fetchTotals = async (type: string, name?: string) => {
 	if (name) {
 		return await fetchSpecificTotals(type, name);
 	} else {

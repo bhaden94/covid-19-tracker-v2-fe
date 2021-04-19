@@ -62,9 +62,9 @@ const BarChart = ({ type, match, history }: IBarChartProps) => {
 	// for us and world stats
 	const { isLoading, isError, data } = useQuery(
 		["bar_chart", type, name],
-		fetchBarChart,
+		() => fetchBarChart(type, name),
 		{
-			enabled: name,
+			enabled: !!name,
 		}
 	);
 
