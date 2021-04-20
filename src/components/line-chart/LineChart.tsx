@@ -73,7 +73,6 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 		() => fetchLineChart(type),
 		{
 			enabled: !single,
-			staleTime: 50000,
 		}
 	);
 
@@ -83,7 +82,6 @@ const LineChart = ({ type, single, match, history }: ILineChartProps) => {
 		() => fetchLineChart(type, name),
 		{
 			enabled: single && !!name,
-			staleTime: 50000,
 		}
 	);
 

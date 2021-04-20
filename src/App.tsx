@@ -8,7 +8,7 @@ import useTheme from "@material-ui/core/styles/useTheme";
 import TotalsRoutes from "./components/total/TotalsRoutes";
 import Navbar from "./components/nav/Navbar";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query-devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
 import TableBarChartRoutes from "./components/table/TableBarChartRoutes";
 import LineChartRoutes from "./components/line-chart/LineChartRoutes";
 import Grid from "@material-ui/core/Grid";
@@ -22,7 +22,14 @@ function App(props: { width: Breakpoint }) {
 	const theme = useTheme();
 	const { width } = props;
 
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				refetchOnWindowFocus: false,
+				staleTime: 50000,
+			},
+		},
+	});
 
 	return (
 		<QueryClientProvider client={queryClient}>
