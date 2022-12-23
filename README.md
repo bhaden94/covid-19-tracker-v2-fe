@@ -161,5 +161,5 @@ Brady Haden - [LinkedIn](https://www.linkedin.com/in/brady-s-haden/)
 [linkedin-url]: https://www.linkedin.com/in/brady-s-haden/
 [product-screenshot]: images/screenshot.png
 
-[code-quality-shield]: https://www.code-inspector.com/project/16565/score/svg
-[code-grade]: https://www.code-inspector.com/project/16565/status/svg
+[code-quality-shield]: https://api.codiga.io/project/16565/score/svg
+[code-grade]: https://api.codiga.io/project/16565/status/svg
